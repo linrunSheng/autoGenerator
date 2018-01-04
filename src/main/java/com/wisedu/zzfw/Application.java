@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.CollectionUtils;
 
 import com.wisedu.zzfw.generator.Generator;
-import com.wisedu.zzfw.model.BeanModel;
+import com.wisedu.zzfw.viewmodel.CrudBean;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,8 +38,8 @@ public class Application {
 		if (CollectionUtils.isEmpty(generators)) {
 			throw new NullPointerException("至少需要一个代码生成器Generator");
 		}
-		List<BeanModel> beanModelClasses = generatorProperties.getBeanModelClass();
-		for (BeanModel beanModel : beanModelClasses) {
+		List<CrudBean> beanModelClasses = generatorProperties.getCrudBeanList();
+		for (CrudBean beanModel : beanModelClasses) {
 			for (Generator generator : generators) {
 				generator.genCode(beanModel, generatorConfigation);
 			}

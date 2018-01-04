@@ -1,9 +1,9 @@
 package com.wisedu.zzfw.generator;
 
 import com.wisedu.zzfw.GeneratorProperties.Project;
-import com.wisedu.zzfw.model.BeanModel;
 import com.wisedu.zzfw.viewmodel.Clazz;
 import com.wisedu.zzfw.viewmodel.ControllerAttribute;
+import com.wisedu.zzfw.viewmodel.CrudBean;
 import com.wisedu.zzfw.viewmodel.JavaAttribute;
 
 import lombok.Getter;
@@ -16,19 +16,19 @@ public abstract class AbstractControllerGenerator extends AbstractJavaGenerator 
 	protected ControllerAttribute controllerAttribute;
 
 	@Override
-	protected void init(BeanModel beanModel) {
+	protected void init(CrudBean beanModel) {
 		super.init(beanModel);
 		this.initControllerAttribute(beanModel);
 	}
 	
-	protected void initControllerAttribute(BeanModel beanModel){
+	protected void initControllerAttribute(CrudBean beanModel){
 		this.controllerAttribute = ControllerAttribute.builder().controllerRequestMapping(controllerRequestMapping(beanModel))
 				.viewPath(viewPath(beanModel)).build();
 	}
 
-	protected abstract String controllerRequestMapping(BeanModel beanModel);
+	protected abstract String controllerRequestMapping(CrudBean beanModel);
 
-	protected abstract String viewPath(BeanModel beanModel);
+	protected abstract String viewPath(CrudBean beanModel);
 
 	@Override
 	protected final Clazz curClazz(JavaAttribute javaAttribute) {

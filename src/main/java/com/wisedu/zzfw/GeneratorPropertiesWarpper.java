@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wisedu.zzfw.model.BeanModel;
+import com.wisedu.zzfw.viewmodel.CrudBean;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class GeneratorPropertiesWarpper extends GeneratorProperties{
 	
 	@Getter
 	@Setter
-	private List<BeanModel> beanModelClass = new ArrayList<BeanModel>();
+	private List<CrudBean> crudBeanList = new ArrayList<CrudBean>();
 
 	@Autowired
 	private GeneratorProperties generatorProperties;
@@ -30,7 +30,7 @@ public class GeneratorPropertiesWarpper extends GeneratorProperties{
 		List<ModelAttributes> modelAttributesList = generatorProperties.getModelAttributes();
 		for (ModelAttributes modelAttributes2 : modelAttributesList) {
 			String beanClass = modelAttributes2.getJavaAttributes().getModelPackage()+"."+modelAttributes2.getModelName();
-			this.beanModelClass.add(new BeanModel(Class.forName(beanClass), modelAttributes2));
+			this.crudBeanList.add(new CrudBean(Class.forName(beanClass), modelAttributes2));
 		}
 	}
 }

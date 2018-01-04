@@ -3,8 +3,8 @@ package com.wisedu.zzfw.generator;
 import java.io.File;
 
 import com.wisedu.zzfw.GeneratorProperties.ModelAttributes.JavaAttributes;
-import com.wisedu.zzfw.model.BeanModel;
 import com.wisedu.zzfw.viewmodel.Clazz;
+import com.wisedu.zzfw.viewmodel.CrudBean;
 import com.wisedu.zzfw.viewmodel.JavaAttribute;
 
 import lombok.Getter;
@@ -17,12 +17,12 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
 	protected JavaAttribute javaAttribute;
 
 	@Override
-	protected void init(BeanModel beanModel) {
+	protected void init(CrudBean beanModel) {
 		super.init(beanModel);
 		this.initJavaAttribute(beanModel);
 	}
 
-	protected void initJavaAttribute(BeanModel beanModel) {
+	protected void initJavaAttribute(CrudBean beanModel) {
 		JavaAttributes javaAttributes = beanModel.getModelAttributes().getJavaAttributes();
 		String modelFullName = beanModel.getBeanFullName();
 		String modelSimpleName = beanModel.getBeanSimpleName();

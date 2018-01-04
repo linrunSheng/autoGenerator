@@ -16,14 +16,50 @@ crudgen:
         service-package: com.wisedu.zzfw.template.campus.service #service包路径
         controller-package: com.wisedu.zzfw.campus.web #controller包路径
         controller-request-mapping: manage/campus #controller requestMapping路径
-      view-attributes:
-        query-columns: xqdm,xqmc,csmc #-页面查询条件字段
         query-order-sql: px asc,csmc desc,xqmc desc #排序字段,格式为sql中order by 后的内容
-        required-columns: xqdm,xqmc,csmc,xqdz,lxdh,sfsy,lng,lat #form表单必填字段
-        valid-exists-columns: xqdm #校验数据重复字段
+      view-attributes:
+#        query-columns: xqdm,xqmc,csmc #-页面查询条件字段
+#        query-order-sql: px asc,csmc desc,xqmc desc #排序字段,格式为sql中order by 后的内容
+#        required-columns: xqdm,xqmc,csmc,xqdz,lxdh,sfsy,lng,lat #form表单必填字段
+#        valid-exists-columns: xqdm #校验数据重复字段
         view-path: manage/campus #jsp文件相对路径
+      column-attr-map:    #列属性
+        xqdm:
+          index: 1 #顺序号
+          nullable: false #是否可空 默认可空
+          queryable: true #是否作为查询条件 默认否
+          uniqueable: true #是否唯一性校验
+          alias: 校区代码 #列别名 页面显示字段名称 为空默认为数据库字段注释
+          grid-showable: true #表格是否显示 默认显示
+          type: #数据展示类型 text combobox datebox等 暂未实现
+        xqmc:
+          index: 2 
+          nullable: false
+          queryable: true
+        csmc:
+          index: 0
+          nullable: false
+          queryable: true
+          alias: 城市名称
+        lxdh:
+          index: 3
+          grid-showable: false
+          nullable: false
+        xqdz:
+          index: 4
+          grid-showable: false
+          nullable: false
+        sfsy:
+          index: 5
+          alias: 是否启用
+          nullable: false
+        lng:
+          nullable: false
+          index: 6
+        lag:
+          nullable: false
+          index: 7  
       menu-attributes:
         module-name: 校区管理 #模块名称
         parent-module-name: 字典表维护 #父模块名称
         role-name: 实施管理员 #角色名称
-        

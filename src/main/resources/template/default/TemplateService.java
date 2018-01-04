@@ -38,6 +38,12 @@ public class ${className} extends AbstractCommonService<${simpleModel}>{
 		Criteria criteria = example.createCriteria();
 		<#list columns as pn> 			
 		  if(!StringUtils.isEmpty(${simplePageModelInstance}.get${pn.columnNameDx}())){
+			  //2、cap_first 将字符串中的第一个单词的首字母变为大写。
+//			  ${‘str’？cap_first}à结果为Str
+//			  3、uncap_first将字符串中的第一个单词的首字母变为小写。
+//			  ${‘Str’？cap_first}à结果为str
+//			  4、 capitalize将字符串中的所有单词的首字母变为大写
+//			  ${‘str’？ capitalize}à结果为STR
 			  criteria.andLike(${simpleModel}.FieldEnum.${pn.dbColumnName}.javaFieldName(),"%"+${simplePageModelInstance}.get${pn.columnNameDx}()+"%");
 		  }
 		</#list> 

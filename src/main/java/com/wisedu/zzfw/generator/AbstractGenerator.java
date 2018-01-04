@@ -4,17 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.FileSystemException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.hadoop.mapred.gethistory_jsp;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.wisedu.zzfw.GeneratorConfigation;
 import com.wisedu.zzfw.GeneratorProperties.Project;
 import com.wisedu.zzfw.generator.annotation.ModelIgnoreAttribute;
-import com.wisedu.zzfw.model.BeanModel;
+import com.wisedu.zzfw.viewmodel.CrudBean;
+import com.wisedu.zzfw.viewmodel.CrudColumn;
 import com.wisedu.zzfw.viewmodel.FileAttribute;
 
 import freemarker.template.Template;
@@ -31,7 +34,10 @@ public abstract class AbstractGenerator implements Generator {
 	@ModelIgnoreAttribute
 	protected FileAttribute fileAttribute;
 	
-	protected void init(BeanModel beanModel){
+	protected List<CrudColumn> columns;
+	
+	protected void init(CrudBean beanModel){
+		columns = beanModel.getColumns();
 	}
 	
 	protected abstract String projectPath(Project project);
@@ -55,7 +61,7 @@ public abstract class AbstractGenerator implements Generator {
 	protected abstract File getFile();
 	
 	@Override
-	public final File genCode(BeanModel beanModel, GeneratorConfigation generatorConfigation) {
+	public final File genCode(CrudBean beanModel, GeneratorConfigation generatorConfigation) {
 		this.initFileAttribute(beanModel, generatorConfigation);
 		this.init(beanModel);
 		File codeFile = this.getFile();
@@ -66,7 +72,7 @@ public abstract class AbstractGenerator implements Generator {
 		return codeFile;
 	}
 	
-	private void initFileAttribute(BeanModel beanModel, GeneratorConfigation generatorConfigation){
+	private void initFileAttribute(CrudBean beanModel, GeneratorConfigation generatorConfigation){
 		this.fileAttribute = FileAttribute.builder().projectPath(projectPath(generatorConfigation.getProject()))
 				.templateName(templateName()).build();
 	}

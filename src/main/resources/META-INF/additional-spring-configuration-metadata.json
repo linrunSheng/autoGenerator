@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "crudgen.project.java-project-path",
+  "type": "java.lang.String",
+  "description": "后端服务项目绝对路径"
+}]}

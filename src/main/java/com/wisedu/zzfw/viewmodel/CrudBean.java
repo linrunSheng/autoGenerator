@@ -1,19 +1,18 @@
-package com.wisedu.zzfw.model;
+package com.wisedu.zzfw.viewmodel;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.wisedu.zzfw.GeneratorProperties.ModelAttributes;
+import com.wisedu.zzfw.GeneratorProperties.ModelAttributes.ColumnAttributes;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
-public class BeanModel {
-	
-	private Class<?> beanClass;
+public class CrudBean {
 	
 	private String beanDescription;
 	
@@ -21,12 +20,11 @@ public class BeanModel {
 	
 	private String beanFullName;
 	
-	private List<ColumnModel> columns = new ArrayList<ColumnModel>();
+	private List<CrudColumn> columns;
 	
-	private ModelAttributes modelAttributes = new ModelAttributes();
+	private ModelAttributes modelAttributes;
 	
-	public BeanModel(Class<?> beanClass, ModelAttributes modelAttributes) {
-		this.beanClass = beanClass;
+	public CrudBean(Class<?> beanClass, ModelAttributes modelAttributes) {
 		this.beanSimpleName = beanClass.getSimpleName();
 		this.beanFullName = beanClass.getName();
 		this.modelAttributes = modelAttributes;
@@ -35,11 +33,11 @@ public class BeanModel {
 			String value = annotation.value();
 			this.beanDescription = value;
 		}
-		
+		Map<String, ColumnAttributes> configColumns = modelAttributes.getColumnAttrMap();
 		Field[] declaredFields = beanClass.getDeclaredFields();
 		for (Field field : declaredFields) {
 			if(!Modifier.isStatic(field.getModifiers())){	//判断是否静态属性
-				columns.add(new ColumnModel(field));
+				columns.add(new CrudColumn(field ,configColumns.get(field.getName())));
 			}
 		}
 	}

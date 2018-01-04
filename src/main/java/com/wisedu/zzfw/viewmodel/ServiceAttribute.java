@@ -8,7 +8,7 @@ public class ServiceAttribute{
 	/**
 	 * 
 	 */
-	protected String orderByColumn;
+	protected String orderBySql;
 	
 	/**
 	 * 查询列
