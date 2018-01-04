@@ -1,6 +1,5 @@
 package com.wisedu.zzfw.autoconfigation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -9,15 +8,12 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wisedu.zzfw.GeneratorProperties;
 import com.wisedu.zzfw.GeneratorPropertiesWarpper;
-import com.wisedu.zzfw.generator.impl.AbstractControllerGenerator;
+import com.wisedu.zzfw.generator.AbstractControllerGenerator;
 import com.wisedu.zzfw.generator.impl.DefaultControllerGenerator;
 
 @Configuration
 @EnableConfigurationProperties({GeneratorProperties.class,GeneratorPropertiesWarpper.class})
 public class BuilderAutoConfigation {
-	
-	@Autowired
-	GeneratorPropertiesWarpper generatorPropertiesWarpper;
 	
 	@Bean
 	@ConditionalOnMissingBean

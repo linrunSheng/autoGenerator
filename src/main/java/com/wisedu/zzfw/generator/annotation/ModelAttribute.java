@@ -20,6 +20,7 @@ import org.springframework.core.annotation.AliasFor;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
+@Model
 public @interface ModelAttribute {
 	
 	@AliasFor("key")

@@ -8,11 +8,11 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.CollectionUtils;
 
 import com.wisedu.zzfw.generator.Generator;
 import com.wisedu.zzfw.model.BeanModel;
 
-import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
@@ -23,22 +23,25 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	@Autowired  
-	Configuration configuration;
-	
-	@Autowired
+	@Autowired(required=false)
 	List<Generator> generators;
 	
 	@Autowired
 	GeneratorPropertiesWarpper generatorProperties;
 	
+	@Autowired
+	GeneratorConfigation generatorConfigation;
+	
 	@PostConstruct
 	private void init() throws IOException{
 		log.info("开始生成");
+		if (CollectionUtils.isEmpty(generators)) {
+			throw new NullPointerException("至少需要一个代码生成器Generator");
+		}
 		List<BeanModel> beanModelClasses = generatorProperties.getBeanModelClass();
 		for (BeanModel beanModel : beanModelClasses) {
 			for (Generator generator : generators) {
-				generator.genCode();
+				generator.genCode(beanModel, generatorConfigation);
 			}
 		}
 		log.info("生成结束");

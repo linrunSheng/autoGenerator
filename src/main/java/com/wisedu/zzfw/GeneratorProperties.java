@@ -15,6 +15,8 @@ public class GeneratorProperties {
 
 	private Project project;
 	
+	private String templatePath = "/template";
+	
 	/**
 	 * 是否启用
 	 */
@@ -44,7 +46,7 @@ public class GeneratorProperties {
 
 		private JavaAttributes javaAttributes = new JavaAttributes();
 
-		private PageAttributes pageAttributes = new PageAttributes();
+		private ViewAttributes viewAttributes = new ViewAttributes();
 
 		/**
 		 * 菜单
@@ -61,15 +63,15 @@ public class GeneratorProperties {
 
 			private String controllerPackage;
 
-			private String controllerPath;
+			private String controllerRequestMapping;
 
 		}
 
 		@Getter
 		@Setter
-		public static class PageAttributes {
+		public static class ViewAttributes {
 
-			private String jspPath;
+			private String viewPath;
 
 			private String queryColumns;
 

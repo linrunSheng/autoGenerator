@@ -5,19 +5,21 @@ import java.lang.reflect.Modifier;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+
+import com.wisedu.zzfw.util.ReflectionUtils;
 
 @Component  
 public class ModelAttributeAutowired {
 	
 	public void setModelAttribute(Map<String,Object> modelMap, Object object){
 		if (object.getClass().getAnnotation(Model.class) != null) {
-			Field[] declaredFields = object.getClass().getDeclaredFields();
+			
+			Field[] declaredFields = ReflectionUtils.getAllDeclaredField(object);
 			for (Field field : declaredFields) {
 				//排除忽略字段
 				ModelIgnoreAttribute modelIgnoreAttribute = field.getAnnotation(ModelIgnoreAttribute.class);
-				if (modelIgnoreAttribute != null) {
+				if (modelIgnoreAttribute == null) {
 					if(Modifier.isStatic(field.getModifiers())){
 						continue;
 					}
@@ -37,7 +39,7 @@ public class ModelAttributeAutowired {
 	}
 	
 	public Object getFieldValue(Field field ,Object generator){
-		Object value = ReflectionUtils.getField(field, generator);
+		Object value = ReflectionUtils.getFieldValue(generator, field.getName());
 		//基本数据类型
 		if (value.getClass().isPrimitive()) {
 			return value;
