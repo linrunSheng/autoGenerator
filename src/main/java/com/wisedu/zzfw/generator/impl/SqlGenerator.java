@@ -10,6 +10,7 @@
 //
 //import com.wisedu.zzfw.GeneratorProperties.ModelAttributes;
 //import com.wisedu.zzfw.generator.AbstractGenerator;
+//import com.wisedu.zzfw.model.CrudBean;
 //
 //import lombok.Getter;
 //import lombok.Setter;
@@ -28,8 +29,8 @@
 //	private String viewName;
 //	
 //	@Override
-//	protected void init() {
-//		super.init();
+//	protected void init(CrudBean crudBean) {
+//		super.init(crudBean);
 //		this.setTemplateName("template.sql");
 //		this.viewName = this.getBeanModel().getBeanSimpleName().toLowerCase();
 //		this.initFilePath();

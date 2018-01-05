@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 /**
 * @ClassName: Model
-* @Description: TODO(这里用一句话描述这个类的作用)
+* @Description: 标准了该住的的类或字段 成员变量将写入到视图
 * @author  luanhy
 * @date 2018年1月3日 下午10:07:31
 * @Copyright: Copyright (c) 2017 wisedu

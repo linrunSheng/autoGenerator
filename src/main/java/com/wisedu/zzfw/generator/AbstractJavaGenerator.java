@@ -3,9 +3,9 @@ package com.wisedu.zzfw.generator;
 import java.io.File;
 
 import com.wisedu.zzfw.GeneratorProperties.ModelAttributes.JavaAttributes;
-import com.wisedu.zzfw.viewmodel.Clazz;
-import com.wisedu.zzfw.viewmodel.CrudBean;
-import com.wisedu.zzfw.viewmodel.JavaAttribute;
+import com.wisedu.zzfw.model.Clazz;
+import com.wisedu.zzfw.model.CrudBean;
+import com.wisedu.zzfw.model.JavaAttribute;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,16 +17,16 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
 	protected JavaAttribute javaAttribute;
 
 	@Override
-	protected void init(CrudBean beanModel) {
-		super.init(beanModel);
-		this.initJavaAttribute(beanModel);
+	protected void init(CrudBean crudBean) {
+		super.init(crudBean);
+		this.initJavaAttribute(crudBean);
 	}
 
-	protected void initJavaAttribute(CrudBean beanModel) {
-		JavaAttributes javaAttributes = beanModel.getModelAttributes().getJavaAttributes();
-		String modelFullName = beanModel.getBeanFullName();
-		String modelSimpleName = beanModel.getBeanSimpleName();
-		this.javaAttribute = JavaAttribute.builder().description(beanModel.getBeanDescription())
+	protected void initJavaAttribute(CrudBean crudBean) {
+		JavaAttributes javaAttributes = crudBean.getModelAttributes().getJavaAttributes();
+		String modelFullName = crudBean.getFullName();
+		String modelSimpleName = crudBean.getSimpleName();
+		this.javaAttribute = JavaAttribute.builder().description(crudBean.getDescription())
 				.model(new Clazz(modelFullName)).pageModel(new Clazz(modelFullName + "Param"))
 				.service(new Clazz(javaAttributes.getServicePackage() + "." + modelSimpleName + "Service"))
 				.controller(

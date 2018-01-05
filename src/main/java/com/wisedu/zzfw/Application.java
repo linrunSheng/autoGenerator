@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.CollectionUtils;
 
 import com.wisedu.zzfw.generator.Generator;
-import com.wisedu.zzfw.viewmodel.CrudBean;
+import com.wisedu.zzfw.model.CrudBean;
 
 import lombok.extern.slf4j.Slf4j;
 

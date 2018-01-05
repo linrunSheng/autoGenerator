@@ -3,7 +3,7 @@
  */
 $(function(){
 	//初始化加载
-	${viewName}.init();
+	${modelName?uncap_first}.init();
 	
 	$.ajaxSetup({
         complete : function(xhr,status){
@@ -18,22 +18,22 @@ $(function(){
 
 
 function formatOperation(val, row, index) {
-	return '<a href="#" onclick="${viewName}.showEdit(true,'+index+')'
-			+ '">编辑</a>&nbsp&nbsp<a href="#" onclick="${viewName}.del(true,'+index+')">删除</a>';
+	return '<a href="#" onclick="${modelName?uncap_first}.showEdit(true,'+index+')'
+			+ '">编辑</a>&nbsp&nbsp<a href="#" onclick="${modelName?uncap_first}.del(true,'+index+')">删除</a>';
 }
 
 
-var ${viewName} ={
+var ${modelName?uncap_first} ={
 		editFlag:false,
 		rowIndex:null,
 		init: function(){
-			${viewName}.initTable();
+			${modelName?uncap_first}.initTable();
 		},
 		initTable : function(){
 			var param = $("#searchForm").serializeJSON();
 		    Common.datagrid("table",{
 		        queryParams: param,
-		        url:rootUrl+'/${controllerPath}/list.do',
+		        url:rootUrl+'/${controllerAttribute.controllerRequestMapping}/list.do',
 		        toolbar:"#toolbar",
 		        fitColumns:true,
 		        pagination:true,
@@ -42,8 +42,8 @@ var ${viewName} ={
 		},
 		showEdit: function(editFlag,index){
 			//为空时新增
-			${viewName}.editFlag = editFlag;
-			${viewName}.rowIndex = index;
+			${modelName?uncap_first}.editFlag = editFlag;
+			${modelName?uncap_first}.rowIndex = index;
 			$("#editForm").form("clear");
 			if(!editFlag){
 				$("#edit-window").window("setTitle","新增");
@@ -69,16 +69,16 @@ var ${viewName} ={
 			if(tipFlag==undefined || tipFlag==true){
 				$.messager.confirm('提示','您确定要删除该记录吗?',function(r){
 			        if (r){
-			        	${viewName}._del(tipFlag,row);
+			        	${modelName?uncap_first}._del(tipFlag,row);
 			        }
 			    });
 			}else{
-				${viewName}._del(tipFlag,row);
+				${modelName?uncap_first}._del(tipFlag,row);
 			}
 		},
 		_del: function(tipFlag,row){
 			$.ajax({
-	            url:rootUrl+'/${controllerPath}/delete.do',
+	            url:rootUrl+'/${controllerAttribute.controllerRequestMapping}/delete.do',
 	            async:false,
 	            type:'post',
                 data:{"id":row.wid},
@@ -87,7 +87,7 @@ var ${viewName} ={
                 	if (data.ret == 0){
                 		if(tipFlag==undefined || tipFlag == true){
                 			Common.alertSuccess("该记录删除成功!");
-                			${viewName}.initTable();
+                			${modelName?uncap_first}.initTable();
                 		}
 		            }else{
 		            	if(tipFlag==undefined || tipFlag == true){
@@ -104,9 +104,6 @@ var ${viewName} ={
 			var flag = true;
 			for(var p in data){
 			  if(typeof(data[p]) != "function"){
-				 if("${requiredColumn}".indexOf(p)<0){
-					 continue;
-				 }
 				 var input = $("#editForm #"+p);
 				 var fieldName = input.parent("td").prev("td").text();
 				 if(Common.isNull(fieldName)){
@@ -143,10 +140,10 @@ var ${viewName} ={
 			}else{
 				//修改了编号时也校验
 				var	row = $("#table").datagrid("getSelected");
-				if(!${viewName}.editFlag){
+				if(!${modelName?uncap_first}.editFlag){
 					needCheckFlag = true;
 				}else{
-					var checkColumns = "${validColumn}".split(",");
+					var checkColumns = ${uniqueColumns};
 					for(var i = 0; i<checkColumns.length; i++ ){
 						if(data[checkColumns[i]] != row[checkColumns[i]]){
 							needCheckFlag = true;
@@ -158,15 +155,14 @@ var ${viewName} ={
 			//校验编号是否重复结果
 			var validRet = false;
 			if(needCheckFlag){
-				var validColumnStr = "${validColumn}";
 				var validParam = {};
-				var validColumns = validColumnStr.split(",");
+				var validColumns = ${uniqueColumns};
 				for(var i = 0; i<validColumns.length; i++){
 					var col = validColumns[i];
 					validParam[col] = $("#editForm #"+col).val();
 				}
 				$.ajax({
-		            url:rootUrl+'/${controllerPath}/exist.do',
+		            url:rootUrl+'/${controllerAttribute.controllerRequestMapping}/exist.do',
 		            async:false,
 		            data:validParam,
 		            dataType:"json",
@@ -185,12 +181,12 @@ var ${viewName} ={
 				return;
 			}
 			var action = "";
-			if(${viewName}.editFlag){
+			if(${modelName?uncap_first}.editFlag){
 				// 因为自增长主键 编辑删掉再新增
-				${viewName}.del(false,${viewName}.rowIndex);
+				${modelName?uncap_first}.del(false,${modelName?uncap_first}.rowIndex);
 			}
 			$.ajax({
-	            url:rootUrl+'/${controllerPath}/add.do',
+	            url:rootUrl+'/${controllerAttribute.controllerRequestMapping}/add.do',
 	            async:false,
 	            type:"post",
 	            data:data,
@@ -198,7 +194,7 @@ var ${viewName} ={
 	            success:function(obj){
 	            	if (obj.ret == 0){
 		            	Common.alertSuccess("保存成功!");
-		            	${viewName}.initTable();
+		            	${modelName?uncap_first}.initTable();
 		            	$("#edit-window").window("close");
 		            }else{
 		                Common.alertWarning("保存失败!");

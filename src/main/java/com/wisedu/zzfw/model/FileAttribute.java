@@ -1,4 +1,4 @@
-package com.wisedu.zzfw.viewmodel;
+package com.wisedu.zzfw.model;
 
 import java.io.File;
 

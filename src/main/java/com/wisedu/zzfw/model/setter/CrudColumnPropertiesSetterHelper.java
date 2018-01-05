@@ -3,12 +3,14 @@ package com.wisedu.zzfw.model.setter;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.wisedu.zzfw.GeneratorProperties.ModelAttributes.ColumnAttributes;
-import com.wisedu.zzfw.viewmodel.CrudColumn;
+import com.wisedu.zzfw.model.CrudColumn;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,17 +23,21 @@ import lombok.extern.slf4j.Slf4j;
 */
 @Component
 @Slf4j
-public class ColumnPropertiesSetterHelper {
+public class CrudColumnPropertiesSetterHelper {
 	
 	@Autowired(required=false)
-	List<ColumnPropertiesSetter> columnAttributeSetter;
+	List<CrudColumnPropertiesSetter> columnAttributeSetter;
+	
+	@PostConstruct
+	public void init() {
+		log.debug("属性设置类个数为：{}",columnAttributeSetter==null?0:columnAttributeSetter.size());
+	}
 	
 	public void copyPriperties(CrudColumn model, Field field,ColumnAttributes configColumnAttributes){
-		log.debug("{},属性设置类个数为：{}",model.getColumnName(),columnAttributeSetter==null?0:columnAttributeSetter.size());
 		if (CollectionUtils.isEmpty(columnAttributeSetter)) {
 			throw new RuntimeException("属性设置类个数为空，请检查");
 		}
-		for (ColumnPropertiesSetter columnAttributeSetter : columnAttributeSetter) {
+		for (CrudColumnPropertiesSetter columnAttributeSetter : columnAttributeSetter) {
 			columnAttributeSetter.setColumnFieldValue(model, field, configColumnAttributes);
 		}
 	}

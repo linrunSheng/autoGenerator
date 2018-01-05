@@ -1,4 +1,4 @@
-package com.wisedu.zzfw.viewmodel;
+package com.wisedu.zzfw.model;
 
 import lombok.Builder;
 import lombok.Data;

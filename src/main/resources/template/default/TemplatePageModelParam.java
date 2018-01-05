@@ -1,4 +1,4 @@
-package ${packageName};
+package ${javaAttribute.pageModel.packageName};
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -7,14 +7,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 /**
  * 
-* @ClassName: ${className}
-* @Description: ${description}
+* @ClassName: ${javaAttribute.pageModel.name}
+* @Description:  ${javaAttribute.description}分页参数模型
 * @author  hyluan
 * @date 2017年12月18日 下午5:08:53
 * @Copyright: Copyright (c) 2017 wisedu
  */
-@ApiModel("${className} （${description}）")
-public class ${className} extends ${simpleModel} {
+@ApiModel("${javaAttribute.pageModel.name} （ ${javaAttribute.description}）")
+public class ${javaAttribute.pageModel.name} extends ${javaAttribute.model.name} {
 
 	private static final long serialVersionUID = 1L;
 

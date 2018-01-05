@@ -1,4 +1,4 @@
-package ${packageName};
+package ${javaAttribute.service.packageName};
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -7,8 +7,8 @@ import org.springframework.util.StringUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import ${model};
-import ${pageModel};
+import ${javaAttribute.model.fullName};
+import ${javaAttribute.pageModel.fullName};
 import com.wisedu.zzfw.template.common.model.ResponseList;
 import com.wisedu.zzfw.template.common.service.AbstractCommonService;
 import com.wisedu.zzfw.template.common.util.JacksonUtil;
@@ -19,58 +19,53 @@ import tk.mybatis.mapper.entity.Example.Criteria;
 
 /**
  * 
-* @ClassName: ${className}
-* @Description: ${description}
+* @ClassName: ${javaAttribute.service.name}
+* @Description: ${javaAttribute.description}
 * @author  hyluan
 * @date 2017年12月18日 下午5:08:53
 * @Copyright: Copyright (c) 2017 wisedu
  */
 @Service
-public class ${className} extends AbstractCommonService<${simpleModel}>{
+public class ${javaAttribute.service.name} extends AbstractCommonService<${javaAttribute.model.name}>{
 
-	public ${simpleService}(@Qualifier("${simpleModelInstance}Mapper") Mapper<${simpleModel}> mapper) {
+	public ${javaAttribute.service.name}(@Qualifier("${javaAttribute.model.parametterName}Mapper") Mapper<${javaAttribute.model.name}> mapper) {
 		super(mapper);
 	}
 
-	public ResponseList<${simpleModel}> selectPage(${simplePageModel} ${simplePageModelInstance}){
-		PageHelper.startPage(${simplePageModelInstance}.getPage(), ${simplePageModelInstance}.getRows());
-		Example example = new Example(${simpleModel}.class);
+	public ResponseList<${javaAttribute.model.name}> selectPage(${javaAttribute.pageModel.name} ${javaAttribute.pageModel.parametterName}){
+		PageHelper.startPage(${javaAttribute.pageModel.parametterName}.getPage(), ${javaAttribute.pageModel.parametterName}.getRows());
+		Example example = new Example(${javaAttribute.model.name}.class);
 		Criteria criteria = example.createCriteria();
-		<#list columns as pn> 			
-		  if(!StringUtils.isEmpty(${simplePageModelInstance}.get${pn.columnNameDx}())){
-			  //2、cap_first 将字符串中的第一个单词的首字母变为大写。
-//			  ${‘str’？cap_first}à结果为Str
-//			  3、uncap_first将字符串中的第一个单词的首字母变为小写。
-//			  ${‘Str’？cap_first}à结果为str
-//			  4、 capitalize将字符串中的所有单词的首字母变为大写
-//			  ${‘str’？ capitalize}à结果为STR
-			  criteria.andLike(${simpleModel}.FieldEnum.${pn.dbColumnName}.javaFieldName(),"%"+${simplePageModelInstance}.get${pn.columnNameDx}()+"%");
-		  }
+		<#list columns as pn> 
+			<#if pn.columnAttributes.queryable?string('true','false') =='true'>
+		if(!StringUtils.isEmpty(${javaAttribute.pageModel.parametterName}.get${pn.columnName?cap_first}())){
+			criteria.andLike(${javaAttribute.model.name}.FieldEnum.${pn.dbColumnName}.javaFieldName(),"%"+${javaAttribute.pageModel.parametterName}.get${pn.columnName?cap_first}()+"%");
+		}
+			</#if>
 		</#list> 
-		
-		example.setOrderByClause(" ${orderByColumn} ");
-		Page<${simpleModel}> data = (Page<${simpleModel}>)super.getMapper().selectByExample(example);
+		example.setOrderByClause(" ${serviceAttribute.orderBySql} ");
+		Page<${javaAttribute.model.name}> data = (Page<${javaAttribute.model.name}>)super.getMapper().selectByExample(example);
 		return JacksonUtil.getTableJSON(data.getTotal(), data);
 	}
 	
-	public ${simpleModel} selectByPrimaryKey(String id) {
+	public ${javaAttribute.model.name} selectByPrimaryKey(String id) {
 		return super.selectByPrimaryKey(id);
 	}
 	
-	public int insertSelective(${simpleModel} ${simpleModelInstance}) {
-		return super.insertSelective( ${simpleModelInstance});
+	public int insertSelective(${javaAttribute.model.name} ${javaAttribute.model.parametterName}) {
+		return super.insertSelective( ${javaAttribute.model.parametterName});
 	}
 	
 	public int deleteByPrimaryKey(String id) {
 		return super.deleteByPrimaryKey(id);
 	}
 	
-	public int updateByPrimaryKey(${simpleModel} ${simpleModelInstance}) {
-		return super.updateByPrimaryKey( ${simpleModelInstance});
+	public int updateByPrimaryKey(${javaAttribute.model.name} ${javaAttribute.model.parametterName}) {
+		return super.updateByPrimaryKey( ${javaAttribute.model.parametterName});
 	}
 	
-	public int exist(${simpleModel} ${simpleModelInstance}){
-		return super.selectCount(${simpleModelInstance});
+	public int exist(${javaAttribute.model.name} ${javaAttribute.model.parametterName}){
+		return super.selectCount(${javaAttribute.model.parametterName});
 	}
 
 

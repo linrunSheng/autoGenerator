@@ -10,15 +10,15 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.hadoop.mapred.gethistory_jsp;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.wisedu.zzfw.GeneratorConfigation;
 import com.wisedu.zzfw.GeneratorProperties.Project;
+import com.wisedu.zzfw.generator.annotation.Model;
 import com.wisedu.zzfw.generator.annotation.ModelIgnoreAttribute;
-import com.wisedu.zzfw.viewmodel.CrudBean;
-import com.wisedu.zzfw.viewmodel.CrudColumn;
-import com.wisedu.zzfw.viewmodel.FileAttribute;
+import com.wisedu.zzfw.model.CrudBean;
+import com.wisedu.zzfw.model.CrudColumn;
+import com.wisedu.zzfw.model.FileAttribute;
 
 import freemarker.template.Template;
 import lombok.Getter;
@@ -29,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @Getter
 @Slf4j
+@Model
 public abstract class AbstractGenerator implements Generator {
 	
 	@ModelIgnoreAttribute
@@ -36,8 +37,8 @@ public abstract class AbstractGenerator implements Generator {
 	
 	protected List<CrudColumn> columns;
 	
-	protected void init(CrudBean beanModel){
-		columns = beanModel.getColumns();
+	protected void init(CrudBean crudBean){
+		columns = crudBean.getColumns();
 	}
 	
 	protected abstract String projectPath(Project project);

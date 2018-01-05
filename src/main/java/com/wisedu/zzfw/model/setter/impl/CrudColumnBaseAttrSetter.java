@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.wisedu.zzfw.GeneratorProperties.ModelAttributes.ColumnAttributes;
-import com.wisedu.zzfw.model.setter.ColumnPropertiesSetter;
-import com.wisedu.zzfw.viewmodel.CrudColumn;
+import com.wisedu.zzfw.model.CrudColumn;
+import com.wisedu.zzfw.model.setter.CrudColumnPropertiesSetter;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiModelProperty;
 * @Copyright: Copyright (c) 2017 wisedu
 */
 @Component
-public class ColumnBaseAttrSetter implements ColumnPropertiesSetter {
+public class CrudColumnBaseAttrSetter implements CrudColumnPropertiesSetter {
 
 	/**
 	* {@inheritDoc}

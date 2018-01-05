@@ -1,4 +1,4 @@
-package com.wisedu.zzfw.viewmodel;
+package com.wisedu.zzfw.model;
 
 import com.wisedu.zzfw.util.StringUtil;
 

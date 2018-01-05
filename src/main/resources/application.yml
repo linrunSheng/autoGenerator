@@ -3,11 +3,11 @@ crudgen:
     java-project-path: E://workspace//zzfw-pack//zzfw-interface//zzfw-template #生成的工程路径
     view-project-path: E://workspace//zzfw-pack//zzfw-base//zzfw-admin #视图生成的工程路径
   template-path: /template/default  #模板路径  默认为当前项目 resources/template/default下
-  controller-enabled: true #是否生成controller
-  service-enabled: true #是否生成服务
-  page-model-param-enabled: true #是否生成分页模型参数
+  controller-enabled: false #是否生成controller
+  service-enabled: false #是否生成服务
+  page-model-param-enabled: false #是否生成分页模型参数
   sql-enabled: true #是否生成sql
-  jsp-enabled: true #是否生成jsp
+  view-enabled: false #是否生成视图 默认jsp
   js-enabled: true #是否生成js
   model-attributes:
     - model-name: ZzfwXq #model名称
@@ -18,10 +18,6 @@ crudgen:
         controller-request-mapping: manage/campus #controller requestMapping路径
         query-order-sql: px asc,csmc desc,xqmc desc #排序字段,格式为sql中order by 后的内容
       view-attributes:
-#        query-columns: xqdm,xqmc,csmc #-页面查询条件字段
-#        query-order-sql: px asc,csmc desc,xqmc desc #排序字段,格式为sql中order by 后的内容
-#        required-columns: xqdm,xqmc,csmc,xqdz,lxdh,sfsy,lng,lat #form表单必填字段
-#        valid-exists-columns: xqdm #校验数据重复字段
         view-path: manage/campus #jsp文件相对路径
       column-attr-map:    #列属性
         xqdm:
