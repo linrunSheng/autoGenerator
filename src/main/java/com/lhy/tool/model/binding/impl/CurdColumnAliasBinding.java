@@ -10,8 +10,8 @@ import com.lhy.tool.model.CrudColumn;
 import com.lhy.tool.model.binding.CrudColumnPropertiesBinding;
 
 /**
-* @ClassName: AliasColumnAttributeSetter
-* @Description: TODO(这里用一句话描述这个类的作用)
+* @ClassName: CurdColumnAliasBinding
+* @Description: 列别名绑定
 * @author  luanhy
 * @date 2018年1月4日 下午10:13:55
 * @Copyright: Copyright (c) 2017 wisedu
@@ -35,7 +35,6 @@ public class CurdColumnAliasBinding implements CrudColumnPropertiesBinding {
 		}else{
 			if (StringUtils.isEmpty(columnDesc)) {
 				columnModel.setColumnDesc(columnModel.getColumnName());
-			}else{
 			}
 		}
 		

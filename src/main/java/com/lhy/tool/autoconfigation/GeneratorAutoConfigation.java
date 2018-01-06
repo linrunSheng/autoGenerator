@@ -20,7 +20,7 @@ import com.lhy.tool.generator.impl.DefaultSqlGenerator;
 @Configuration
 @EnableConfigurationProperties({GeneratorProperties.class,GeneratorPropertiesWarpper.class})
 @Import({CrudFactoryAutoConfigation.class,GeneratorConfigation.class})
-public class BuilderAutoConfigation {
+public class GeneratorAutoConfigation {
 	
 	@Bean
 	@ConditionalOnMissingBean

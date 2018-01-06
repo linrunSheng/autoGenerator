@@ -10,7 +10,7 @@ import com.lhy.tool.model.binding.CrudColumnPropertiesBinding;
 
 /**
 * @ClassName: CrudColumnNullableBinding
-* @Description: TODO(这里用一句话描述这个类的作用)
+* @Description: 列空置绑定
 * @author  luanhy
 * @date 2018年1月4日 下午10:13:55
 * @Copyright: Copyright (c) 2017 wisedu

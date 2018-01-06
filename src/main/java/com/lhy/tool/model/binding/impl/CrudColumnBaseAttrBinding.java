@@ -11,12 +11,13 @@ import org.springframework.util.StringUtils;
 import com.lhy.tool.autoconfigation.GeneratorProperties.ModelAttributes.ColumnAttributes;
 import com.lhy.tool.model.CrudColumn;
 import com.lhy.tool.model.binding.CrudColumnPropertiesBinding;
+import com.lhy.tool.util.StringUtil;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
 * @ClassName: CrudColumnBaseAttrBinding
-* @Description: TODO(这里用一句话描述这个类的作用)
+* @Description: 列基础属性绑定
 * @author  luanhy
 * @date 2018年1月4日 下午10:13:55
 * @Copyright: Copyright (c) 2017 wisedu
@@ -36,15 +37,24 @@ public class CrudColumnBaseAttrBinding implements CrudColumnPropertiesBinding {
 			}
 			columnModel.setColumnName(field.getName());
 			
-			ApiModelProperty apiModelProperty = field.getAnnotation(ApiModelProperty.class);
 			Column column = field.getAnnotation(Column.class);
-			columnModel.setDbColumnName(column.name());
+			if (column == null) {
+				columnModel.setDbColumnName(StringUtil.camelToUnderline(field.getName()));
+			}else{
+				columnModel.setDbColumnName(column.name());
+			}
+			
+			ApiModelProperty apiModelProperty = field.getAnnotation(ApiModelProperty.class);
 			if (apiModelProperty != null) {
 				if(!StringUtils.isEmpty(apiModelProperty.value())){
 					columnModel.setColumnDesc(apiModelProperty.value());
 				}
 				columnModel.setCanNull(!apiModelProperty.required());
+			}else{
+				columnModel.setColumnDesc(field.getName());
+				columnModel.setCanNull(true);
 			}
+			
 			columnModel.setColumnType(field.getType().getName());
 		
 	}

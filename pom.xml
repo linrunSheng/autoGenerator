@@ -42,17 +42,17 @@
 			 <groupId>commons-collections</groupId>
   			 <artifactId>commons-collections</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.wisedu</groupId> -->
-<!-- 			<artifactId>zzfw-template</artifactId> -->
-<!-- 			<version>3.0.1</version> -->
-<!-- 			<exclusions> -->
-<!-- 				<exclusion> -->
-<!-- 					<artifactId>*</artifactId> -->
-<!-- 					<groupId>*</groupId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.wisedu</groupId>
+			<artifactId>zzfw-template</artifactId>
+			<version>3.0.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>*</artifactId>
+					<groupId>*</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<!-- Swagger -->
 		<dependency>
