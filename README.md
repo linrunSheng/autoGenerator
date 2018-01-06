@@ -82,7 +82,7 @@ public class ZzfwXq implements Serializable {
 
 
 
-2. 加入模型所在项目的依赖
+###  2. 加入模型所在项目的依赖
 
 例如：
 
@@ -102,7 +102,7 @@ public class ZzfwXq implements Serializable {
 
 
 
-3.application.yml配置
+###  3.application.yml配置
 
 ```
 crudgen:
@@ -201,13 +201,14 @@ crudgen:
 
 ```
 
-4. 运行Application.java 或者mvn spring-boot:run
+###  4. 运行Application.java 或者mvn spring-boot:run
 
 即可生成 controller service pageModelParam等代码
 
 
 
-5. 如果默认的配置不满足要求的，可以自定义配置
+###  5. 如果默认的配置不满足要求的，可以自定义配置
+
 参考demo
 
 ![注册相关配置类以取代默认配置](https://gitee.com/uploads/images/2018/0106/232355_dcd39f94_1009390.png "注册相关配置类以取代默认配置.png")
@@ -215,3 +216,6 @@ crudgen:
 配置自定义模型参数和列参数
 
 ![配置自定义模型参数和列参数](https://gitee.com/uploads/images/2018/0106/232651_8efacc5f_1009390.png "配置自定义模型参数和列参数.png")
+
+
+###  6 如有不足的地方，欢迎大家指正。
