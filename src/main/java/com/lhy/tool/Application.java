@@ -1,4 +1,4 @@
-package com.wisedu.zzfw;
+package com.lhy.tool;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.CollectionUtils;
 
-import com.wisedu.zzfw.autoconfigation.GeneratorConfigation;
-import com.wisedu.zzfw.generator.Generator;
-import com.wisedu.zzfw.model.CrudBean;
+import com.lhy.tool.autoconfigation.GeneratorConfigation;
+import com.lhy.tool.generator.Generator;
+import com.lhy.tool.model.CrudBean;
 
 import lombok.extern.slf4j.Slf4j;
 
