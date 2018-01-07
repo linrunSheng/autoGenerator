@@ -1,7 +1,10 @@
 package com.lhy.tool.model.factory.impl;
 
+import java.util.Comparator;
+
 import com.lhy.tool.autoconfigation.GeneratorProperties.ModelAttributes;
 import com.lhy.tool.model.CrudBean;
+import com.lhy.tool.model.CrudColumn;
 import com.lhy.tool.model.factory.AbstractCrudBeanFactory;
 
 public class DefaultCrudBeanFactory extends AbstractCrudBeanFactory {
@@ -13,6 +16,15 @@ public class DefaultCrudBeanFactory extends AbstractCrudBeanFactory {
 	@Override
 	protected void initBeanCustomProperties(CrudBean bean, ModelAttributes modelAttributes) {
 	}
-		
+
+	/**
+	* {@inheritDoc}
+	* @Description: 
+	*/
+	@Override
+	protected Comparator<CrudColumn> columnsComparator() {
+		return null;
+	}
+	
 
 }
