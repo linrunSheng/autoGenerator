@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-<head>
+	<head>
 <title>自助服务平台 - </title>
 <link rel="stylesheet" type="text/css"
 	href="${ctx}/resources/common/themes/default/easyui.css" />
@@ -28,7 +28,7 @@
     var rootUrl = "${ctx}";
 </script>
 </head>
-<body>
+	<body>
 	<div class="easyui-panel" title="">   
         <table id="table" style="height: 600px;">
 			<thead>
@@ -48,19 +48,38 @@
 			<div style="padding:2px;">
 				<form id="searchForm">
 					<table style="width: 100%;height: auto;" border="0">
-						<tr>
-							<#list columns as column>
-								<#if column.columnAttributes.queryable?string('true','false')=="true">
+						<#-- 定义每行显示字段数-->
+						<#assign col=4 />
+						<#list queryColumns as column>
+						<#-- 取3的模，即除于3的倍数余数为0的生成行的开头<tr> -->
+						<#if column_index%col==0><tr></#if>
 							<td align="right">${column.columnDesc}：</td>
 							<td align="left" width="166">
 								<input id="${column.columnName}" name="${column.columnName}" style="height:18px;width: 148px;" class="easyui-validatebox textbox">
 							</td>
-								</#if>
-							</#list>
-							<td align="right" colspan="2" style="padding-right: 51px;"><a href="javascript:void(0)"
-								class="easyui-linkbutton" icon="icon-search"
-								onclick="${modelName?uncap_first}.initTable()" style="width: 60px;">查询</a></td>
+						    <#-- 如果最后一个不是刚好3列，则要补充完剩下的列 ,最后两列加入查询条件-->
+						<#if column_index == (queryColumns?size-1) && column_index%col!=(col-1)>
+						    <#assign end=(col-(queryColumns?size%col)-1) />
+						    <td colspan="${end*2}">&nbsp;</td>
+						    <td align="right" colspan="2" style="padding-right: 51px;"><a href="javascript:void(0)"
+									class="easyui-linkbutton" icon="icon-search"
+									onclick="${modelName?uncap_first}.initTable()" style="width: 60px;">查询</a>
+						    </td>
 						</tr>
+						</#if>
+						<#-- 取3的模，即除于3的倍数余数为2（0到2刚好3列）的生成行的结尾</tr> -->
+						<#if column_index%col==(col-1)></tr></#if>
+						<#-- 最后一个字段刚好填满，则单独加一行 ,最后两列加入查询条件 -->
+						<#if column_index == (queryColumns?size-1) && column_index%col==(col-1)>
+						</tr>
+						    <td colspan="${(col-1)*2}">&nbsp;</td>
+						    <td align="right" colspan="2" style="padding-right: 51px;"><a href="javascript:void(0)"
+									class="easyui-linkbutton" icon="icon-search"
+									onclick="${modelName?uncap_first}.initTable()" style="width: 60px;">查询</a>
+						    </td>
+						</tr>
+						</#if>
+						</#list>
 					</table>
 				</form>
 			</div>
@@ -106,4 +125,3 @@
 		</div>
 	</div> 
 </body>
-</html>
