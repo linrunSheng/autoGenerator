@@ -9,6 +9,9 @@ import com.lhy.tool.model.JavaAttribute;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 抽象代码生成器
+ */
 @Getter
 @Setter
 public abstract class AbstractControllerGenerator extends AbstractJavaGenerator {
@@ -25,7 +28,7 @@ public abstract class AbstractControllerGenerator extends AbstractJavaGenerator 
 		return ControllerAttribute.builder().controllerRequestMapping(controllerRequestMapping(beanModel))
 				.viewPath(viewPath(beanModel)).build();
 	}
-	
+
 	protected String controllerRequestMapping(CrudBean beanModel) {
 		return beanModel.getModelAttributes().getJavaAttributes().getControllerRequestMapping();
 	}
