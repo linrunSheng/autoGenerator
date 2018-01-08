@@ -2,15 +2,17 @@ crudgen:
   project:
     java-project-path: E://workspace//zzfw-pack//zzfw-interface//zzfw-template #生成的工程路径
     view-project-path: E://workspace//zzfw-pack//zzfw-base//zzfw-admin #视图生成的工程路径
-  template-path: /template/default  #模板路径  默认为当前项目 resources/template/default下
+  template-path: /templates/default  #模板路径  默认为当前项目 resources/templates/default下
   controller-enabled: false #是否生成controller
-  service-enabled: false #是否生成服务
+  service-enabled: false #是否生成service服务
   page-model-param-enabled: false #是否生成分页模型参数
-  sql-enabled: true #是否生成sql
-  view-enabled: false #是否生成视图 默认jsp
-  js-enabled: true #是否生成js
+  view-enabled: true #是否生成视图 默认jsp
+  js-enabled: false #是否生成js
+  sql-enabled: false #是否生成sql
   model-attributes:
     - model-name: ZzfwXq #model名称
+      extend-attr-map: #自定义扩展属性
+        author: administrator
       java-attributes:
         model-package: com.wisedu.zzfw.template.campus.model #model包路径
         service-package: com.wisedu.zzfw.template.campus.service #service包路径
@@ -18,7 +20,7 @@ crudgen:
         controller-request-mapping: manage/campus #controller requestMapping路径
         query-order-sql: px asc,csmc desc,xqmc desc #排序字段,格式为sql中order by 后的内容
       view-attributes:
-        view-path: manage/campus #jsp文件相对路径
+        view-path: manage/campus #jsp等视图文件相对路径
       column-attr-map:    #列属性
         xqdm:
           index: 1 #顺序号
@@ -28,6 +30,8 @@ crudgen:
           alias: 校区代码 #列别名 页面显示字段名称 为空默认为数据库字段注释
           grid-showable: true #表格是否显示 默认显示
           type: #数据展示类型 text combobox datebox等 暂未实现
+          extend-attr-map: #列扩展属性
+            custom-attr: 2018
         xqmc:
           index: 2 
           nullable: false
@@ -40,20 +44,25 @@ crudgen:
         lxdh:
           index: 3
           grid-showable: false
+          queryable: true
           nullable: false
         xqdz:
           index: 4
           grid-showable: false
+          queryable: true
           nullable: false
         sfsy:
           index: 5
           alias: 是否启用
+          queryable: true
           nullable: false
         lng:
           nullable: false
+          queryable: false
           index: 6
         lag:
           nullable: false
+          queryable: false
           index: 7  
       menu-attributes:
         module-name: 校区管理 #模块名称
