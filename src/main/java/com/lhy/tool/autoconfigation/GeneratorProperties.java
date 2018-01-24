@@ -220,7 +220,7 @@ public class GeneratorProperties {
 			/**
 			 * 表格中是否显示该列
 			 */
-			private boolean gridShowable = true;
+			private boolean gridShowable = false;
 			
 			/**
 			 * 前端数据类型  text combobox databox等
