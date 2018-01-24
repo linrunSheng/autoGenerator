@@ -1,14 +1,14 @@
 package com.lhy.tool.custom;
 
-import org.springframework.stereotype.Component;
-
 import com.lhy.tool.generator.AbstractControllerGenerator;
 import com.lhy.tool.model.CrudBean;
-
 import lombok.Getter;
 import lombok.Setter;
 
-@Component
+/**
+ *
+ */
+//@Component
 @Getter
 @Setter
 public class CustomControllerGenerator extends AbstractControllerGenerator {

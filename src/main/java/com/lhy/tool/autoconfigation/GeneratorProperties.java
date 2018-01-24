@@ -1,15 +1,14 @@
 package com.lhy.tool.autoconfigation;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 
@@ -206,7 +205,7 @@ public class GeneratorProperties {
 			/**
 			 * 索引 即排序号
 			 */
-			private int index;
+			private int index = 99999;
 			
 			/**
 			 * 是否可为空

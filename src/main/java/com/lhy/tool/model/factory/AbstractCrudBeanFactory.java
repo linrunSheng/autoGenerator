@@ -1,23 +1,18 @@
 package com.lhy.tool.model.factory;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-
 import com.lhy.tool.autoconfigation.GeneratorProperties.ModelAttributes;
 import com.lhy.tool.autoconfigation.GeneratorProperties.ModelAttributes.ColumnAttributes;
 import com.lhy.tool.model.CrudBean;
 import com.lhy.tool.model.CrudColumn;
-
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 @Slf4j
 public abstract class AbstractCrudBeanFactory implements CrudBeanFactory {
@@ -109,7 +104,7 @@ public abstract class AbstractCrudBeanFactory implements CrudBeanFactory {
 		return new Comparator<CrudColumn>() {
 			@Override
 			public int compare(CrudColumn o1, CrudColumn o2) {
-				return o2.getColumnAttributes().getIndex() - o1.getColumnAttributes().getIndex();
+				return o1.getColumnAttributes().getIndex() - o2.getColumnAttributes().getIndex();
 			}
 		};
 	}
