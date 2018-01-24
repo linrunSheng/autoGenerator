@@ -12,6 +12,8 @@ delete from ss_modulepath where MODULE_WID = '${sqlAttribute.moduleWid}';
 --2、创建菜单，默认菜单创建在实施人员权限下
 insert into ss_menuitem (WID, NAME, ICON_PATH, PATH, MODULE_WID, MENU_WID, MEMO, PARENT_WID, INDEXED)
 values ('${sqlAttribute.menuitemWid}', '${sqlAttribute.moduleName}', null, null, '${sqlAttribute.moduleWid}',
-	 (select wid from ss_menu where role='${sqlAttribute.roleName}'), null, (select wid from ss_menuitem where name='${sqlAttribute.parentModuleName}'), 
-	 (select max(indexed)+1 from ss_menuitem where parent_wid = (select wid from ss_menuitem where name='${sqlAttribute.parentModuleName}')));
+	 (select wid from ss_menu where role='${sqlAttribute.roleName}'), null, (select wid from ss_menuitem where name='${sqlAttribute.parentModuleName}'
+	  and menu_wid=(select wid from ss_menu where role='${sqlAttribute.roleName}')),
+	 (select max(indexed)+1 from ss_menuitem where parent_wid = (select wid from ss_menuitem where name='${sqlAttribute.parentModuleName}'
+	  and menu_wid=(select wid from ss_menu where role='${sqlAttribute.roleName}'))));
 commit;

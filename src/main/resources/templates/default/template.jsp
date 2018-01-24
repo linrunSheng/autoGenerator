@@ -3,7 +3,7 @@
 <%@ include file="/views/common/taglibs.jsp"%>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 <title>自助服务平台 - </title>
 <link rel="stylesheet" type="text/css"
@@ -40,7 +40,7 @@
 					<th data-options="field:'${column.columnName }',width:105,align:'center',hidden:true">${column.columnDesc }</th>
 						</#if>
 					</#list>
-					<th data-options="field:'operation',width:94,align:'center',formatter:formatOperation"></th>
+					<th data-options="field:'operation',width:94,align:'center',formatter:formatOperation">操作</th>
 				</tr>
 			</thead>
 		</table>
