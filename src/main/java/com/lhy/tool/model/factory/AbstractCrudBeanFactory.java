@@ -1,18 +1,24 @@
 package com.lhy.tool.model.factory;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import com.lhy.tool.autoconfigation.GeneratorProperties.ModelAttributes;
 import com.lhy.tool.autoconfigation.GeneratorProperties.ModelAttributes.ColumnAttributes;
 import com.lhy.tool.model.CrudBean;
 import com.lhy.tool.model.CrudColumn;
+
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.*;
 
 @Slf4j
 public abstract class AbstractCrudBeanFactory implements CrudBeanFactory {
@@ -57,56 +63,58 @@ public abstract class AbstractCrudBeanFactory implements CrudBeanFactory {
 			crudBean.setDescription(value);
 		}
 
-		List<CrudColumn> columns = new ArrayList<CrudColumn>();
+
 		Map<String, ColumnAttributes> configColumns = modelAttributes.getColumnAttrMap();
 		Field[] declaredFields = beanClass.getDeclaredFields();
-		for (Field field : declaredFields) {
-			if (!Modifier.isStatic(field.getModifiers())) { // 判断是否静态属性
-				CrudColumn newInstance = crudColumnFactory.newInstance(field, configColumns.get(field.getName()));
-				columns.add(newInstance);
-			}
-		}
-		columns = this.sortColumns(columns);
+//		List<CrudColumn> columns = new ArrayList<CrudColumn>();
+//		for (Field field : declaredFields) {
+//			if (!Modifier.isStatic(field.getModifiers())) { // 判断是否静态属性
+//				CrudColumn newInstance = crudColumnFactory.newInstance(field, configColumns.get(field.getName()));
+//				columns.add(newInstance);
+//			}
+//		}
+//		columns = this.sortColumns(columns);
+		//1.8
+		List<CrudColumn> columns = Stream.of(declaredFields)
+				.filter(field -> !Modifier.isStatic(field.getModifiers()))
+				.map(field -> crudColumnFactory.newInstance(field, configColumns.get(field.getName())))
+				.sorted(getCrudColumnComparator())
+				.collect(Collectors.toList());
 		crudBean.setColumns(columns);
 	}
 
 	/**
-	 * 
-	 * @Title: sortColumns
-	 * @Description: 排序 index升序排列
 	 * @param columns
 	 * @return List
+	 * @Title: sortColumns
+	 * @Description: 排序 index升序排列
 	 */
 	private List<CrudColumn> sortColumns(List<CrudColumn> columns) {
-		Comparator<CrudColumn> columnsComparator = null;
-		if (this.columnsComparator() == null) {
-			columnsComparator = defaultColumnsComparator();
-		}
+		Comparator<CrudColumn> columnsComparator = getCrudColumnComparator();
 		Collections.sort(columns, columnsComparator);
 		return columns;
 	}
 
+	private Comparator<CrudColumn> getCrudColumnComparator() {
+		Comparator<CrudColumn> columnsComparator = null;
+		if (this.columnsComparator() == null) {
+			columnsComparator = new DefaultColumnsComparator();
+		}
+		return columnsComparator;
+	}
+
 	/**
-	 * 
+	 * @return Comparator<CrudColumn>
 	 * @Title: columnsComparator
 	 * @Description: 列排序比较器 如果为空采用默认列比较器
-	 * @return Comparator<CrudColumn>
 	 */
 	protected abstract Comparator<CrudColumn> columnsComparator();
-	
-	/**
-	 * 
-	 * @Title: defaultColumnsComparator
-	 * @Description: 默认列排序比较器
-	 * @return Comparator<CrudColumn>
-	 */
-	private Comparator<CrudColumn> defaultColumnsComparator() {
-		return new Comparator<CrudColumn>() {
-			@Override
-			public int compare(CrudColumn o1, CrudColumn o2) {
-				return o1.getColumnAttributes().getIndex() - o2.getColumnAttributes().getIndex();
-			}
-		};
+
+	static class DefaultColumnsComparator implements Comparator<CrudColumn> {
+
+		public int compare(CrudColumn o1, CrudColumn o2) {
+			return o2.getColumnAttributes().getIndex() - o1.getColumnAttributes().getIndex();
+		}
 	}
 
 }
