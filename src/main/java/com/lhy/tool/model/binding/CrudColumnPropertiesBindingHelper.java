@@ -37,8 +37,9 @@ public class CrudColumnPropertiesBindingHelper {
 		if (CollectionUtils.isEmpty(columnAttributeBinding)) {
 			throw new RuntimeException("属性设置类个数为空，请检查");
 		}
-		for (CrudColumnPropertiesBinding columnAttributeSetter : columnAttributeBinding) {
-			columnAttributeSetter.binding(model, field, configColumnAttributes);
-		}
+		columnAttributeBinding.forEach(crudColumnPropertiesBinding -> 	crudColumnPropertiesBinding.binding(model, field, configColumnAttributes));
+		//for (CrudColumnPropertiesBinding columnAttributeSetter : columnAttributeBinding) {
+			//columnAttributeSetter.binding(model, field, configColumnAttributes)
+		//}
 	}
 }

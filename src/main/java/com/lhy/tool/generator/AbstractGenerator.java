@@ -115,7 +115,7 @@ public abstract class AbstractGenerator implements Generator {
 	* 设置到model中的属性，和{@link AbstractGenerator} 及子类的成员变量都将写入视图
 	* 自定义模型时推荐继承{@link AbstractCrudBeanFactory}<br>
 	* 自定义模型列时推荐继承{@link AbstractCrudColumnFactory}<br>
-	* @param 当前模型名称
+	* @param modelName 当前模型名称
 	* @param extendAttribute 从配置中获取的额外属性
 	* @param model
 	 */
@@ -133,9 +133,8 @@ public abstract class AbstractGenerator implements Generator {
 	private void processTemplateToFile(GeneratorConfigation generatorConfigation, Map<String, Object> model){
 		Set<Entry<String,Object>> entrySet = model.entrySet();
 		log.debug("模板参数:");
-		for (Entry<String, Object> entry : entrySet) {
-			log.debug("key: {},value: {}",entry.getKey(),entry.getValue());
-		}
+		//1.8
+		entrySet.forEach(entry -> log.debug("key: {},value: {}",entry.getKey(),entry.getValue()));
 		Template template = generatorConfigation.getFreeMarkerconfiguration().getTemplate(fileAttribute.getTemplateName());
 		String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);  
 		File codeFile = fileAttribute.getCodeFile();
