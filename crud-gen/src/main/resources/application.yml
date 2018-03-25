@@ -1,0 +1,52 @@
+crudgen:
+  project:
+    java-project-path: E:\git-new-res\crud-generator\crud-example #生成的工程路径
+    view-project-path: E:\git-new-res\crud-generator\crud-example #视图生成的工程路径
+  template-path: /templates/easyui  #模板路径  默认为当前项目 resources/templates/easyui下
+  controller-enabled: true #是否生成controller
+  service-enabled: true #是否生成service服务
+  view-enabled: true #是否生成视图 默认thymeleaf html
+  js-enabled: true #是否生成js
+  model-attributes:
+    - model-name: User #model名称 支持配置多张表 参考yml数组配置
+      extend-attr-map: #自定义扩展属性
+        author: hyluan
+      java-attributes:
+        model-package: com.lhy.example.user.model #model包路径
+        service-package: com.lhy.example.user.service #service包路径
+        controller-package: com.lhy.example.user.web #controller包路径
+        controller-request-mapping: user #controller requestMapping路径
+        query-order-sql: updated desc #排序字段,格式为sql中order by 后的内容
+      view-attributes:
+        view-path: example/user #html等视图文件相对路径
+      column-attr-map:    #列属性
+      #类扩展配置 不是必须，不设置也能正常生成
+        id:
+          index: 1 #顺序号
+          nullable: false #是否可空 默认可空
+          queryable: false #是否作为查询条件 默认否
+          uniqueable: false #是否唯一性校验 默认否
+          alias: 用户ID #列别名 页面显示字段名称 为空默认为数据库字段注释
+          grid-showable: false #表格是否显示 默认显示
+          type: #数据展示类型 text combobox datebox等 暂未实现
+          extend-attr-map: #列扩展属性 map可自定义
+            custom-attr: 2018
+        name:
+          index: 2 #顺序号
+          nullable: false #是否可空 默认可空
+          queryable: true #是否作为查询条件 默认否
+          uniqueable: true #是否唯一性校验
+          alias: 用户姓名 #列别名 页面显示字段名称 为空默认为数据库字段注释
+          grid-showable: true #表格是否显示 默认显示
+        pass:
+          grid-showable: false
+        phone:
+          index: 3
+        status:
+          index: 4
+          nullable: false
+          queryable: true
+        created:
+          index: 5
+        updated:
+          index: 6

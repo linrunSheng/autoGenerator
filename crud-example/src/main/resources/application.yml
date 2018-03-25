@@ -1,0 +1,83 @@
+spring:
+  #http
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  #mvc
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    date-format: yyyy-MM-dd HH\:mm\:ss
+#thymeleaf
+  thymeleaf:
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+  #druid
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/crud_test?useUnicode=true&characterEncoding=UTF-8
+      username: crud_test
+      password: crud_test
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 5
+      max-active: 20
+      min-idle: 8
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 20000
+      test-on-borrow: true
+      test-on-return: true
+      test-while-idle: true
+      time-between-eviction-runs-millis: 300000
+      min-evictable-idle-time-millis: 1800000
+      max-evictable-idle-time-millis: 3600000
+      filters: stat,wall,log4j
+#mybatis
+mybatis:
+  mapper-locations:
+    - classpath*:com/lhy/**/mapper/*.xml
+#tkmapper
+mapper:
+    mappers:
+        - tk.mybatis.mapper.common.Mapper
+    not-empty: false
+    identity: MYSQL
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+#swagger
+swagger:
+  enabled: true
+  title: crud-test
+  description: 增删改查springboot应用示例
+  version: 1.0.0
+  license: Apache License, Version 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfServiceUrl: http://blog.csdn.net/v2sking
+  contact.name: 再见尼罗河
+  contact.url: http://blog.csdn.net/v2sking
+  contact.email: 1591963820@163.com
+  base-package: com.lhy.example
+  base-path: /**
+  exclude-path: /error, /ops/**
+  docket:
+    user:
+      title: 用户相关
+      description:  用户相关
+      base-path: /user/**
+#flyway:
+#  locations: filesystem:C:/Users/Administrator/Desktop/sql
+#  baselineOnMigrate: true
+#  table: t_sql_version
+#  sql-migration-prefix: siapp
+

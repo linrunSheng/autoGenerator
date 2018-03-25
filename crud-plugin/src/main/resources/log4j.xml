@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+    <!-- 输入到控制台的日志信息 INFO到WARN -->
+	<appender name="Console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %l %t - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 正常的日记文件INFO到WARN --> 
+	<appender name="ssm"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="Encoding" value="GBK" />
+		<param name="File" value="./generator.log" />
+		<param name="MaxFileSize" value="20MB" />
+		<param name="MaxBackupIndex" value="50" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %l %t - %m%n" />
+		</layout>
+	</appender>
+
+	<root>
+		<level value="DEBUG" /><!--需要更多调试信息时，把File改为Daily，并把以rule.开头的logger改为DEBUG级别-->
+		<appender-ref ref="ssm" />
+		<appender-ref ref="Console" />
+	</root>
+</log4j:configuration>
+

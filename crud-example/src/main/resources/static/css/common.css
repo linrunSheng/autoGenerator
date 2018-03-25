@@ -1,0 +1,18 @@
+.window-form-table {
+	width: 100%;
+}
+
+.window-form-table tr {
+	height: 40px;
+}
+
+.window-form-table tr td:nth-child(2n+1) {
+	text-align: right;
+	width: 40%;
+	padding-right: 5px;
+}
+
+.operBtn{
+	width: 60px;
+	height: 20px;
+}

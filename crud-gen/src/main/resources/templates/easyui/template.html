@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/css/bootstrap/easyui.css}"/>
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/css/icon.css}"/>
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/css/common.css}"/>
+	<script type="text/javascript"
+			th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/jquery.easyui.min.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/easyui-lang-zh_CN.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/jquery.serializejson.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/common.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/${controllerAttribute.viewPath}.js}"></script>
+</head>
+<script type="text/javascript">
+    $(function () {
+        ${modelName?uncap_first}.query();
+    });
+</script>
+</head>
+<body>
+	<div class="easyui-panel" title="">
+		<div id="toolbar" style="height:auto;padding:0">
+			<div style="padding:2px;">
+				<form id="searchForm">
+					<table style="width: 100%;height: auto;" border="0">
+						<#-- 定义每行显示字段数-->
+						<#assign col=4 />
+						<#list queryColumns as column>
+						<#-- 取3的模，即除于3的倍数余数为0的生成行的开头<tr> -->
+						<#if column_index%col==0><tr></#if>
+						<td align="right">${column.columnDesc}：</td>
+						<td align="left" width="166">
+							<input id="${column.columnName}" name="${column.columnName}" style="height:18px;width: 148px;" class="easyui-validatebox textbox">
+						</td>
+						<#-- 如果最后一个不是刚好3列，则要补充完剩下的列 ,最后两列加入查询条件-->
+						<#if column_index == (queryColumns?size-1) && column_index%col!=(col-1)>
+						<#assign end=(col-(queryColumns?size%col)-1) />
+						<td colspan="${end*2}">&nbsp;</td>
+						<td align="right" colspan="2" style="padding-right: 51px;">
+							<a href="javascript:void(0)"	class="easyui-linkbutton" icon="icon-search"
+								onclick="${modelName?uncap_first}.query()" style="width: 60px;">查询</a>
+						</td>
+						</tr>
+					</#if>
+					<#-- 取3的模，即除于3的倍数余数为2（0到2刚好3列）的生成行的结尾</tr> -->
+					<#if column_index%col==(col-1)></tr></#if>
+				<#-- 最后一个字段刚好填满，则单独加一行 ,最后两列加入查询条件 -->
+				<#if column_index == (queryColumns?size-1) && column_index%col==(col-1)>
+				</tr>
+				<td colspan="${(col-1)*2}">&nbsp;</td>
+				<td align="right" colspan="2" style="padding-right: 51px;"><a href="javascript:void(0)"
+																			  class="easyui-linkbutton" icon="icon-search"
+																			  onclick="${modelName?uncap_first}.query()" style="width: 60px;">查询</a>
+				</td>
+				</tr>
+			</#if>
+		</#list>
+		</table>
+		</form>
+	</div>
+	<div style="border-top:1px solid #dddddd;padding:2px;">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-add',plain:true" onclick="${modelName?uncap_first}.show(false)">新增</a>
+	</div>
+	</div>
+	<table id="table" style="width: 100%;min-height: 300px;">
+			<thead>
+				<tr>
+					<#list columns as column>
+						<#if column.columnAttributes.gridShowable?string('true','false')=="true">
+					<th data-options="field:'${column.columnName }',width:105,sortable:true,align:'center'">${column.columnDesc }</th>
+						<#else>
+					<th data-options="field:'${column.columnName }',width:105,sortable:true,align:'center',hidden:true">${column.columnDesc }</th>
+						</#if>
+					</#list>
+					<th data-options="field:'operation',width:94,align:'center',formatter:${modelName?uncap_first}.formatOperation">操作</th>
+				</tr>
+			</thead>
+		</table>
+		<div id="edit-window" title="详情" class="easyui-dialog"
+			 style="width:50%;min-width:250px;max-width 300px;padding:5px;overflow-x: hidden"
+			 data-options="modal:true,
+			 closed:true,
+			  buttons:[{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){${modelName?uncap_first}.save()}
+				},{
+					text:'关闭',
+					iconCls:'icon-cancel',
+					handler:function(){$('#edit-window').dialog('close')}
+				}]">
+			<form id="editForm" data-options="novalidate:true">
+				<input type="hidden" id='id' name='id'/>
+				<table class="window-form-table">
+					<#list columns as column>
+						<#if column.columnName!="id">
+					<tr>
+						<td>${column.columnDesc }:</td>
+						<td><input id="${column.columnName}" name="${column.columnName}"
+							<#if column.columnAttributes.nullable?string('true','false')=="false">
+							required="true"
+							</#if>
+							<#if column.columnAttributes.uniqueable?string('true','false')=="true">
+							validType="exists['${column.columnName}','${modelName?uncap_first}']"
+							validateOnBlur="true"
+							delay="500"
+					  		</#if>
+							class="easyui-textbox"/>
+							<#if column.columnAttributes.uniqueable?string('true','false')=="true">
+							<span style="color: red;font-size: 12px">*</span>
+							</#if>
+						</td>
+					</tr>
+						</#if>
+					</#list>
+				</table>
+			</form>
+		</div>
+	</div> 
+</body>

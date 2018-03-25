@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/css/bootstrap/easyui.css}"/>
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/css/icon.css}"/>
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/css/common.css}"/>
+	<script type="text/javascript"
+			th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/jquery.easyui.min.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/easyui-lang-zh_CN.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/jquery.serializejson.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/common.js}"></script>
+	<script type="text/javascript"
+			th:src="@{/js/example/user.js}"></script>
+</head>
+<script type="text/javascript">
+    $(function () {
+        user.query();
+    });
+</script>
+</head>
+<body>
+	<div class="easyui-panel" title="">
+		<div id="toolbar" style="height:auto;padding:0">
+			<div style="padding:2px;">
+				<form id="searchForm">
+					<table style="width: 100%;height: auto;" border="0">
+						<tr>
+						<td align="right">用户姓名：</td>
+						<td align="left" width="166">
+							<input id="name" name="name" style="height:18px;width: 148px;" class="easyui-validatebox textbox">
+						</td>
+					
+						
+						<td align="right">用户状态：</td>
+						<td align="left" width="166">
+							<input id="status" name="status" style="height:18px;width: 148px;" class="easyui-validatebox textbox">
+						</td>
+						<td colspan="2">&nbsp;</td>
+						<td align="right" colspan="2" style="padding-right: 51px;">
+							<a href="javascript:void(0)"	class="easyui-linkbutton" icon="icon-search"
+								onclick="user.query()" style="width: 60px;">查询</a>
+						</td>
+						</tr>
+					
+		</table>
+		</form>
+	</div>
+	<div style="border-top:1px solid #dddddd;padding:2px;">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-add',plain:true" onclick="user.show(false)">新增</a>
+	</div>
+	</div>
+	<table id="table" style="width: 100%;min-height: 300px;">
+			<thead>
+				<tr>
+					<th data-options="field:'id',width:105,sortable:true,align:'center',hidden:true">用户ID</th>
+					<th data-options="field:'name',width:105,sortable:true,align:'center'">用户姓名</th>
+					<th data-options="field:'phone',width:105,sortable:true,align:'center'">手机号</th>
+					<th data-options="field:'status',width:105,sortable:true,align:'center'">用户状态</th>
+					<th data-options="field:'created',width:105,sortable:true,align:'center'">创建时间</th>
+					<th data-options="field:'updated',width:105,sortable:true,align:'center'">更新时间</th>
+					<th data-options="field:'pass',width:105,sortable:true,align:'center',hidden:true">密码</th>
+					<th data-options="field:'operation',width:94,align:'center',formatter:user.formatOperation">操作</th>
+				</tr>
+			</thead>
+		</table>
+		<div id="edit-window" title="详情" class="easyui-dialog"
+			 style="width:50%;min-width:250px;max-width 300px;padding:5px;overflow-x: hidden"
+			 data-options="modal:true,
+			 closed:true,
+			  buttons:[{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){user.save()}
+				},{
+					text:'关闭',
+					iconCls:'icon-cancel',
+					handler:function(){$('#edit-window').dialog('close')}
+				}]">
+			<form id="editForm" data-options="novalidate:true">
+				<input type="hidden" id='id' name='id'/>
+				<table class="window-form-table">
+					<tr>
+						<td>用户姓名:</td>
+						<td><input id="name" name="name"
+							required="true"
+							validType="exists['name','user']"
+							validateOnBlur="true"
+							delay="500"
+							class="easyui-textbox"/>
+							<span style="color: red;font-size: 12px">*</span>
+						</td>
+					</tr>
+					<tr>
+						<td>手机号:</td>
+						<td><input id="phone" name="phone"
+							class="easyui-textbox"/>
+						</td>
+					</tr>
+					<tr>
+						<td>用户状态:</td>
+						<td><input id="status" name="status"
+							required="true"
+							class="easyui-textbox"/>
+						</td>
+					</tr>
+					<tr>
+						<td>创建时间:</td>
+						<td><input id="created" name="created"
+							class="easyui-textbox"/>
+						</td>
+					</tr>
+					<tr>
+						<td>更新时间:</td>
+						<td><input id="updated" name="updated"
+							class="easyui-textbox"/>
+						</td>
+					</tr>
+					<tr>
+						<td>密码:</td>
+						<td><input id="pass" name="pass"
+							class="easyui-textbox"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div> 
+</body>
