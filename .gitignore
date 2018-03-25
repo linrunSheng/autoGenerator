@@ -1,10 +1,7 @@
 /target/
-/.apt_generated/
-/**/.project
-/**/.classpath
 /**/target/
-/**/.settings/
 /**/*.log
-/**/.factorypath
 /.idea/
 /.springBeans
+/**/*.iml
+/crud-example/crud-example.iml

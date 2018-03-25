@@ -1,80 +1,53 @@
 #  **crud-generator**
 
 # 增删改查代码生成工具  适合后台管理应用的基本增删该查代码的生成
+基础模板后端为springmvc+swagger restful api风格
+前端模板为 jquery-easyui风格
 
-### 工具在springboot的基础上，使用freeMarker 结合持久层tkmapper的generator插件生成代码
+### 工具在springboot的基础上，使用freeMarker,javaparser 结合持久层mybatis generator插件生成代码
 
 生成的代码包含:
 
-jsp（默认 可扩展为html或其他任意视图文件）
+html（默认 可扩展为jsp，vue,html或其他任意视图文件）
+js
+controller
+service
+mapper.java
+mapper.xml
+model.java模型文件
+### 使用步骤 以下以生成E:\git-new-res\crud-generator\curd-example 简单应用为例
 
-js文件
+###  1.clone项目到本地
 
-springmvc的 controller文件
+###  2.连接mysql 数据库创建测试数据库
+执行crud-example\db.sql
 
-service文件
+###  3. 控制台进入crud-generator项目目录，安装相关依赖
+cd e:\git-new-res\crud-generator\
+mvn clean install
 
-pageModel分页参数模型文件
+###  4.切换到curd-example示例项目，通过mybatis generator生成dao层代码
+cd e:\git-new-res\crud-generator\crud-example
+mvn mybatis-generator:generate
 
-以及数据库脚本菜单语句 sql文件
+###  5.切换到curd-gen实例项目，生成web和前端代码  或 main函数允许crud-gen下Application
+cd e:\git-new-res\crud-generator\crud-gen
+mvn spring-boot:run
 
+###  6. 所有代码生成完毕，启动crud-example项目进行测试 或 main函数允许crud-example下Application
+cd e:\git-new-res\crud-generator\crud-example
+mvn spring-boot:run
 
-### 使用步骤
+## 查看后端swagger-ui接口
+浏览器输入 http://127.0.0.1/8080/swagger-ui.html
 
-###  1.确保已经包含数据库表对应的实体对象模型
-例如模型类：
-```
-@Table(name = "T_ZZFW_XQ")
-@ApiModel("ZzfwXq（校区对象）")
-public class ZzfwXq implements Serializable {
-    /**
-     * 校区代码
-     */
-    @Id
-    @Column(name = "XQDM")
-    @ApiModelProperty(value ="校区代码",required = false)
-    @ColumnType(jdbcType=JdbcType.VARCHAR)
-    private String xqdm;
-
-    /**
-     * 备注
-     */
-    @Column(name = "BZ")
-    @ApiModelProperty(value ="备注",required = false)
-    @ColumnType(jdbcType=JdbcType.VARCHAR)
-    private String bz;
-
-    //省略其他字段和Getter Setter方法
-
-    private static final long serialVersionUID = 1L;
+## 预览前端页面功能
+浏览器输入 http://127.0.0.1/8080/userview
 
 
-    public enum FieldEnum {
-        XQDM("xqdm","XQDM"),
-		BZ("bz","BZ"),
-        //省略其他字段
-		;
 
-        private String javaFieldName;
 
-        private String dbFieldName;
-
-        FieldEnum(String javaFieldName, String dbFieldName) {
-            this.javaFieldName = javaFieldName;
-            this.dbFieldName = dbFieldName;
-        }
-
-        public String javaFieldName() {
-            return javaFieldName;
-        }
-
-        public String dbFieldName() {
-            return dbFieldName;
-        }
-    }
-}
-```
-楼主这里使用扩展的tkmapper-generator插件，模型字段上包含 jpa注解和swagger注解，主要获取表注释和字段注释作为默认的页面标题和字段名称，不是必须，
+楼主这里使用扩展的tkmapper-generator插件，模型字段上包含 jpa注解和swagger注解，主要获取表注释和字段注释作为默认的页面标题和字段名称，
 
 如果不想使用jpa注解和swagger注解，可以集成抽象类 _AbstractCrudColumnFactory_  和  _AbstractCrudBeanFactory_ 并注册为springbean来自定义模型和列的内容
 
@@ -82,23 +55,10 @@ public class ZzfwXq implements Serializable {
 
 
 
-###  2. 加入模型所在项目的依赖
+###  
 
 例如：
 
-```
-<dependency>
-	<groupId>com.wisedu</groupId>
-	<artifactId>zzfw-template</artifactId>
-	<version>3.0.1</version>
-	<exclusions>
-		<exclusion>
-			<artifactId>*</artifactId>
-			<groupId>*</groupId>
-		</exclusion>
-	</exclusions>
-</dependency>
-```
 
 
 
@@ -201,14 +161,18 @@ crudgen:
 
 ```
 
-###  4. 运行Application.java 或者mvn spring-boot:run
-
-即可生成 controller service pageModelParam等代码
 
 
 
 ###  5. 如果默认的配置不满足要求的，可以自定义配置
 
+
+
+
+
+
+
+r
 参考demo
 
 ![注册相关配置类以取代默认配置](https://gitee.com/uploads/images/2018/0106/232355_dcd39f94_1009390.png "注册相关配置类以取代默认配置.png")
