@@ -1,13 +1,14 @@
-#  **crud-generator**
+#  **HY crud-generator**
 
-## 基于springBoot的代码生成工具
-适合后台管理应用的基本增删该查代码的生成
-两行命令搞定一个单页增删改查应用！
+### 基于springBoot的代码生成工具,适合后台管理应用的基本增删该查代码的生成,简单配置即可搞定一个单页增删改查应用！
+
+
+
 基础模板后端为springmvc+swagger restful api风格
 前端模板为 jquery-easyui风格
 支持扩展
 
-## 使用技术
+### 使用技术
 
  1. springBoot
  2. springMvc
@@ -22,7 +23,7 @@
 
 
 
-## 可生成以下代码:
+### 可生成以下代码:
 
  - html页面（默认 可扩展为jsp，vue组件,纯html或其他视图文件）
  - js脚本
@@ -32,38 +33,38 @@
  - mapper.xml 后端dao层xml
  - model.java模型文件
 
-## 模块说明
+### 模块说明
 ![模块说明](https://gitee.com/uploads/images/2018/0325/180653_28812020_1009390.png "屏幕截图.png")
 
 
-## 使用步骤 
-### 以下以生成E:\git-new-res\crud-generator\curd-example 简单springboot应用为例
+### 使用步骤 
+#### 以下以生成E:\git-new-res\crud-generator\curd-example 简单springboot应用为例
 
-####  1.[clone项目到本地][1]
+#####  1.[clone项目到本地][1]
 
-####  2.连接mysql 数据库创建测试数据库
+#####  2.连接mysql 数据库创建测试数据库
 执行 crud-example\db.sql
 即可创建数据库用户以及初始化测试脚本
 
-####  3. 控制台进入crud-generator项目目录，安装相关依赖
+#####  3. 控制台进入crud-generator项目目录，安装相关依赖
 
  >   cd e:\git-new-res\crud-generator
  >
  >   mvn clean install
 
-####  4.切换到curd-example示例项目，通过mybatis generator生成持久层代码
+#####  4.切换到curd-example示例项目，通过mybatis generator生成持久层代码
 
 > cd e:\git-new-res\crud-generator\crud-example
 >
 > mvn mybatis-generator:generate
 
-####  5.切换到curd-gen项目，生成web层和前端代码  或 main函数执行crud-gen下Application
+#####  5.切换到curd-gen项目，生成web层和前端代码  或 main函数执行crud-gen下Application
 
 > cd e:\git-new-res\crud-generator\crud-gen
 >
 > mvn spring-boot:run
 
-##### 生成的文件目录如下：
+###### 生成的文件目录如下：
 后端：
 
 ![输入图片说明](https://gitee.com/uploads/images/2018/0325/185156_ccb73c2e_1009390.png "屏幕截图.png")
@@ -73,24 +74,24 @@
 
 ![输入图片说明](https://gitee.com/uploads/images/2018/0325/185312_1795f415_1009390.png "屏幕截图.png")
 
-####  6. 所有代码生成完毕，启动crud-example项目进行测试 或 main函数执行crud-example下Application
+#####  6. 所有代码生成完毕，启动crud-example项目进行测试 或 main函数执行crud-example下Application
 
 > cd e:\git-new-res\crud-generator\crud-example
 >
 > mvn spring-boot:run
 
-#### 7.查看后端swagger-ui接口
+##### 7.查看后端swagger-ui接口
 浏览器输入 [http://127.0.0.1/8080/swagger-ui.html][2]
 ![接口预览](https://gitee.com/uploads/images/2018/0325/183850_e6871dd8_1009390.png "屏幕截图.png")
 
-#### 8.预览前端页面功能
+##### 8.预览前端页面功能
 浏览器输入 [http://127.0.0.1/8080/userview][3]
 ![前端页面](https://gitee.com/uploads/images/2018/0325/183941_1f3133be_1009390.png "屏幕截图.png")
 ![编辑](https://gitee.com/uploads/images/2018/0325/184030_17341461_1009390.png "屏幕截图.png")
 
 
 
-###  生成器配置 application.yml
+####  生成器配置 application.yml
 crud-gen模块下application.yml
 通过简洁的yml语法即可配置生成代码的相关属性
 示例如下：
@@ -151,7 +152,7 @@ crudgen:
 ```
 
 
-### 配置自定义模型参数和列参数
+#### 配置自定义模型参数和列参数
 `crudgen.model-attributes.extend-attr-map`
 --配置模型自定义属性
 `crudgen.model-attributes. column-attr-map.列名.extend-attr-map`
@@ -159,14 +160,14 @@ crudgen:
 
 ![配置自定义模型参数和列参数](https://gitee.com/uploads/images/2018/0106/232651_8efacc5f_1009390.png "配置自定义模型参数和列参数.png")
 
-### 自定义配置
-#### 自定义模型和列
+#### 自定义配置
+##### 自定义模型和列
 如果不想使用jpa注解和swagger注解，可以继承抽象类 _AbstractCrudColumnFactory_  和  _AbstractCrudBeanFactory_ 并注册为spring bean来自定义模型和列的内容
 
 默认实现： _DefaultCrudColumnFactory.java_ 
 和           _DefaultCrudBeanFactory.java_ 
 
-#### 增量WebMvcConfigurerAdapter配置
+##### 增量WebMvcConfigurerAdapter配置
 如果前后端未分离需要设置controller和view对应关系
 传统方式是采用@Controller注解映射
 例如：
@@ -181,7 +182,7 @@ crudgen:
 CustomWebConfigGenerator.java
 ```
 
-#### 自定义模板文件生成器
+##### 自定义模板文件生成器
 继承对应的abstractXXGenerator
 ![输入图片说明](https://gitee.com/uploads/images/2018/0325/191423_27effcb3_1009390.png "屏幕截图.png")
 
@@ -193,18 +194,18 @@ CustomWebConfigGenerator.java
 
 
 
-##### 更多自定义内容请参考：
+###### 更多自定义内容请参考：
 `crud-generator\crud-gen\src\main\java\com\lhy\tool\custom`目录
 ![注册相关配置类以取代默认配置](https://gitee.com/uploads/images/2018/0106/232355_dcd39f94_1009390.png "注册相关配置类以取代默认配置.png")
 
 
 
 
-###  这个工具功能不是最强大的最完善的，主要是说明下设计过程中使用到的一些较为适用的设计思想和模式
+####  这个工具功能不是最强大的最完善的，主要是说明下设计过程中使用到的一些较为适用的设计思想和模式
 
 例如：封装变化，单一职责，多组合少继承，对修改关闭对扩展开放等等。。。
 
-如有不足欢迎指正。
+欢迎大家交流学习。
 
 
   [1]: https://gitee.com/luanhaoyu/crud-generator.git
