@@ -1,187 +1,212 @@
 #  **crud-generator**
 
-# 增删改查代码生成工具  适合后台管理应用的基本增删该查代码的生成
+## 基于springBoot的代码生成工具
+适合后台管理应用的基本增删该查代码的生成
+两行命令搞定一个单页增删改查应用！
 基础模板后端为springmvc+swagger restful api风格
 前端模板为 jquery-easyui风格
+支持扩展
 
-### 工具在springboot的基础上，使用freeMarker,javaparser 结合持久层mybatis generator插件生成代码
+## 使用技术
 
-生成的代码包含:
-
-html（默认 可扩展为jsp，vue,html或其他任意视图文件）
-js
-controller
-service
-mapper.java
-mapper.xml
-model.java模型文件
-### 使用步骤 以下以生成E:\git-new-res\crud-generator\curd-example 简单应用为例
-
-###  1.clone项目到本地
-
-###  2.连接mysql 数据库创建测试数据库
-执行crud-example\db.sql
-
-###  3. 控制台进入crud-generator项目目录，安装相关依赖
-cd e:\git-new-res\crud-generator\
-mvn clean install
-
-###  4.切换到curd-example示例项目，通过mybatis generator生成dao层代码
-cd e:\git-new-res\crud-generator\crud-example
-mvn mybatis-generator:generate
-
-###  5.切换到curd-gen实例项目，生成web和前端代码  或 main函数允许crud-gen下Application
-cd e:\git-new-res\crud-generator\crud-gen
-mvn spring-boot:run
-
-###  6. 所有代码生成完毕，启动crud-example项目进行测试 或 main函数允许crud-example下Application
-cd e:\git-new-res\crud-generator\crud-example
-mvn spring-boot:run
-
-## 查看后端swagger-ui接口
-浏览器输入 http://127.0.0.1/8080/swagger-ui.html
-
-## 预览前端页面功能
-浏览器输入 http://127.0.0.1/8080/userview
+ 1. springBoot
+ 2. springMvc
+ 3. swagger-ui
+ 4. freemarker
+ 5. mybatis-generator
+ 6. tk通用mapper
+ 7. thymeleaf
+ 8. druid
+ 9. javaparser
+ 10. 前端框架 easyui vue
 
 
 
+## 可生成以下代码:
 
-楼主这里使用扩展的tkmapper-generator插件，模型字段上包含 jpa注解和swagger注解，主要获取表注释和字段注释作为默认的页面标题和字段名称，
+ - html页面（默认 可扩展为jsp，vue组件,纯html或其他视图文件）
+ - js脚本
+ - Controller.java后端控制层
+ - Service.java 后端服务层
+ - Mapper.java 后端dao层
+ - mapper.xml 后端dao层xml
+ - model.java模型文件
 
-如果不想使用jpa注解和swagger注解，可以集成抽象类 _AbstractCrudColumnFactory_  和  _AbstractCrudBeanFactory_ 并注册为springbean来自定义模型和列的内容
-
-默认实现： _DefaultCrudColumnFactory_ 和 _DefaultCrudBeanFactory_ 
-
-
-
-###  
-
-例如：
-
-
+## 模块说明
+![模块说明](https://gitee.com/uploads/images/2018/0325/180653_28812020_1009390.png "屏幕截图.png")
 
 
-###  3.application.yml配置
+## 使用步骤 
+### 以下以生成E:\git-new-res\crud-generator\curd-example 简单springboot应用为例
+
+####  1.[clone项目到本地][1]
+
+####  2.连接mysql 数据库创建测试数据库
+执行 crud-example\db.sql
+即可创建数据库用户以及初始化测试脚本
+
+####  3. 控制台进入crud-generator项目目录，安装相关依赖
+
+ >   cd e:\git-new-res\crud-generator
+ >
+ >   mvn clean install
+
+####  4.切换到curd-example示例项目，通过mybatis generator生成持久层代码
+
+> cd e:\git-new-res\crud-generator\crud-example
+>
+> mvn mybatis-generator:generate
+
+####  5.切换到curd-gen项目，生成web层和前端代码  或 main函数执行crud-gen下Application
+
+> cd e:\git-new-res\crud-generator\crud-gen
+>
+> mvn spring-boot:run
+
+##### 生成的文件目录如下：
+后端：
+
+![输入图片说明](https://gitee.com/uploads/images/2018/0325/185156_ccb73c2e_1009390.png "屏幕截图.png")
+![输入图片说明](https://gitee.com/uploads/images/2018/0325/185243_e9ad48d9_1009390.png "屏幕截图.png")
+
+前端：
+
+![输入图片说明](https://gitee.com/uploads/images/2018/0325/185312_1795f415_1009390.png "屏幕截图.png")
+
+####  6. 所有代码生成完毕，启动crud-example项目进行测试 或 main函数执行crud-example下Application
+
+> cd e:\git-new-res\crud-generator\crud-example
+>
+> mvn spring-boot:run
+
+#### 7.查看后端swagger-ui接口
+浏览器输入 [http://127.0.0.1/8080/swagger-ui.html][2]
+![接口预览](https://gitee.com/uploads/images/2018/0325/183850_e6871dd8_1009390.png "屏幕截图.png")
+
+#### 8.预览前端页面功能
+浏览器输入 [http://127.0.0.1/8080/userview][3]
+![前端页面](https://gitee.com/uploads/images/2018/0325/183941_1f3133be_1009390.png "屏幕截图.png")
+![编辑](https://gitee.com/uploads/images/2018/0325/184030_17341461_1009390.png "屏幕截图.png")
+
+
+
+###  生成器配置 application.yml
+crud-gen模块下application.yml
+通过简洁的yml语法即可配置生成代码的相关属性
+示例如下：
 
 ```
 crudgen:
-
   project:
-
-    java-project-path: E://workspace//zzfw-pack//zzfw-interface//zzfw-template #生成的工程路径
-
-    view-project-path: E://workspace//zzfw-pack//zzfw-base//zzfw-admin #视图生成的工程路径
-
-  template-path: /templates/default  #模板文件路径  默认为当前项目 resources/templates/default下
-
+    java-project-path: E:\git-new-res\crud-generator\crud-example #生成的java工程路径
+    view-project-path: E:\git-new-res\crud-generator\crud-example #视图生成的工程路径
+  template-path: /templates/easyui  #模板路径  默认为当前项目 resources/templates/easyui下
   controller-enabled: true #是否生成controller
-
   service-enabled: true #是否生成service服务
-
-  page-model-param-enabled: true #是否生成分页模型参数
-
-  view-enabled: true #是否生成视图 默认jsp
-
+  view-enabled: true #是否生成视图 默认thymeleaf html
   js-enabled: true #是否生成js
-
-  sql-enabled: true #是否生成sql
-
   model-attributes:
-
-    - model-name: ZzfwXq #model名称
-
+    - model-name: User #model名称 支持配置多表 参考yml数组配置
       extend-attr-map: #自定义扩展属性
-
-        author: administrator 
-
+        author: hyluan
       java-attributes:
-
-        model-package: com.wisedu.zzfw.template.campus.model #model包路径
-
-        service-package: com.wisedu.zzfw.template.campus.service #service包路径
-
-        controller-package: com.wisedu.zzfw.campus.web #controller包路径
-
-        controller-request-mapping: manage/campus #controller requestMapping路径
-
-        query-order-sql: px asc,csmc desc,xqmc desc #排序字段,格式为sql中order by 后的内容
-
+        model-package: com.lhy.example.user.model #model包路径
+        service-package: com.lhy.example.user.service #service包路径
+        controller-package: com.lhy.example.user.web #controller包路径
+        controller-request-mapping: user #controller requestMapping路径
+        query-order-sql: updated desc #排序字段,格式为sql中order by 后的内容
       view-attributes:
-
-        view-path: manage/campus #jsp等视图文件相对路径
-
+        view-path: example/user #html等视图文件相对路径
       column-attr-map:    #列属性
-
-        xqdm:
-
+      #类扩展配置 不是必须，不设置也能正常生成
+        id:
           index: 1 #顺序号
-
           nullable: false #是否可空 默认可空
-
-          queryable: true #是否作为查询条件 默认否
-
-          uniqueable: true #是否唯一性校验
-
-          alias: 校区代码 #列别名 页面显示字段名称 为空默认为数据库字段注释
-
-          grid-showable: true #表格是否显示 默认显示
-
+          queryable: false #是否作为查询条件 默认否
+          uniqueable: false #是否唯一性校验 默认否
+          alias: 用户ID #列别名 页面显示字段名称 为空默认为数据库字段注释
+          grid-showable: false #表格是否显示 默认显示
           type: #数据展示类型 text combobox datebox等 暂未实现
-
-          extend-attr-map: #列扩展属性
-
+          extend-attr-map: #列扩展属性 map可自定义
             custom-attr: 2018
-
-        xqmc:
-
-          index: 2 
-
+        name:
+          index: 2 #顺序号
+          nullable: false #是否可空 默认可空
+          queryable: true #是否作为查询条件 默认否
+          uniqueable: true #是否唯一性校验
+          alias: 用户姓名 #列别名 页面显示字段名称 为空默认为数据库字段注释
+          grid-showable: true #表格是否显示 默认显示
+        pass:
+          grid-showable: false
+        phone:
+          index: 3
+        status:
+          index: 4
           nullable: false
-
           queryable: true
-
-        csmc:
-
-          index: 0
-
-          nullable: false
-
-          queryable: true
-
-          alias: 城市名称
-
-      menu-attributes:
-
-        module-name: 校区管理 #模块名称
-
-        parent-module-name: 字典表维护 #父模块名称
-
-        role-name: 实施管理员 #角色名称
-
+        created:
+          index: 5
+        updated:
+          index: 6
 ```
 
 
-
-
-###  5. 如果默认的配置不满足要求的，可以自定义配置
-
-
-
-
-
-
-
-r
-参考demo
-
-![注册相关配置类以取代默认配置](https://gitee.com/uploads/images/2018/0106/232355_dcd39f94_1009390.png "注册相关配置类以取代默认配置.png")
-
-配置自定义模型参数和列参数
+### 配置自定义模型参数和列参数
+`crudgen.model-attributes.extend-attr-map`
+--配置模型自定义属性
+`crudgen.model-attributes. column-attr-map.列名.extend-attr-map`
+--#列扩展属性
 
 ![配置自定义模型参数和列参数](https://gitee.com/uploads/images/2018/0106/232651_8efacc5f_1009390.png "配置自定义模型参数和列参数.png")
 
+### 自定义配置
+#### 自定义模型和列
+如果不想使用jpa注解和swagger注解，可以继承抽象类 _AbstractCrudColumnFactory_  和  _AbstractCrudBeanFactory_ 并注册为spring bean来自定义模型和列的内容
 
-###  6  这个工具功能不是最强大的最完善的，主要是展示下鄙人设计过程中使用到的一些较为适用的设计思想和模式
+默认实现： _DefaultCrudColumnFactory.java_ 
+和           _DefaultCrudBeanFactory.java_ 
 
-例如：封装变化，单一职责，多组合少继承，对修改关闭对扩展开放等等。。。如有不足欢迎指正。
+#### 增量WebMvcConfigurerAdapter配置
+如果前后端未分离需要设置controller和view对应关系
+传统方式是采用@Controller注解映射
+例如：
+![输入图片说明](https://gitee.com/uploads/images/2018/0325/190955_a616b290_1009390.png "屏幕截图.png")
+本项目服务端全部使用@RestController接口，不映射视图
+将映射模块作为一个扩展功能，根据模型增量生成视图和view映射关系
+
+![输入图片说明](https://gitee.com/uploads/images/2018/0325/191111_b42c3188_1009390.png "屏幕截图.png")
+
+参考curd-gen模块下：
+```
+CustomWebConfigGenerator.java
+```
+
+#### 自定义模板文件生成器
+继承对应的abstractXXGenerator
+![输入图片说明](https://gitee.com/uploads/images/2018/0325/191423_27effcb3_1009390.png "屏幕截图.png")
+
+并添加@Component注解即可替换默认的模板文件生成器
+
+默认的后端生成器为springmvc+mybatis+mapper方式
+默认的前端为easyui html方式
+
+
+
+
+##### 更多自定义内容请参考：
+`crud-generator\crud-gen\src\main\java\com\lhy\tool\custom`目录
+![注册相关配置类以取代默认配置](https://gitee.com/uploads/images/2018/0106/232355_dcd39f94_1009390.png "注册相关配置类以取代默认配置.png")
+
+
+
+
+###  这个工具功能不是最强大的最完善的，主要是说明下设计过程中使用到的一些较为适用的设计思想和模式
+
+例如：封装变化，单一职责，多组合少继承，对修改关闭对扩展开放等等。。。
+
+如有不足欢迎指正。
+
+
+  [1]: https://gitee.com/luanhaoyu/crud-generator.git
+  [2]: http://127.0.0.1/8080/swagger-ui.html
+  [3]: http://127.0.0.1/8080/userview
