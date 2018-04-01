@@ -34,18 +34,19 @@
     <property name="javaFileEncoding" value="UTF-8"/>
 
 	<plugin type="com.lhy.mybatis.plugin.HyMapperPlugin">
-		<property name="swaggerApiEnabled" value="true" />
 		<property name="mappers" value="tk.mybatis.mapper.common.Mapper" />
 		<property name="caseSensitive" value="true" />
-		<!--<property name="beginningDelimiter" value="`"/> -->
-		<!--<property name="endingDelimiter" value="`"/> -->
-		<!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
-		<!-- <property name="caseSensitive" value="true"/> -->
-		<!-- 实现序列化接口 默认true -->
-<!-- 		<property name="implementSerializableInteface" value="true" />  -->
-		 <!-- 实体类增加字段名称枚举 默认true -->
-<!-- 		<property name="modelFieldEnum" value="true" /> -->
-		<!-- setter方法链式调用（返回this） 默认true -->
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+		 caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true
+		 <property name="caseSensitive" value="true"/>
+        <!--开始swagger-ui注解-->
+        <property name="swaggerApiEnabled" value="true" />
+        <!--实现序列化接口 默认true -->
+ 		<property name="implementSerializableInteface" value="true" />
+		  <!--实体类增加字段名称枚举 默认true -->
+ 		<property name="modelFieldEnum" value="true" />
+		 <!--setter方法链式调用（返回this） 默认true -->
 		<property name="setterMethodChainEnabled" value="true" />
 	</plugin>
 

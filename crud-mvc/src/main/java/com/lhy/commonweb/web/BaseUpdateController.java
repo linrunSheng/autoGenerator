@@ -18,7 +18,7 @@ public interface BaseUpdateController<T extends Serializable> {
      * @Description: 更新对象
      * @date 2018/3/14 15:38
      */
-    @ApiOperation(value = "更新对象",notes = "更新对象，根据主键id更新记录，空字段不更新")
+    @ApiOperation(value = "更新对象，根据主键id更新记录，空字段不更新",notes = "更新对象，根据主键id更新记录，空字段不更新")
     @RequestMapping(method = RequestMethod.PUT)
-    ResponseResult<T> update(@RequestBody T bean);
+    ResponseResult update(@RequestBody T bean);
 }

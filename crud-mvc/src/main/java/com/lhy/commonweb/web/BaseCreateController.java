@@ -18,7 +18,7 @@ public interface BaseCreateController<T extends Serializable> {
      * @Description: 保存新增
      * @date 2018/3/14 15:23
      */
-    @ApiOperation(value = "新增",notes = "新增一个对象，参数为请求体json串")
+    @ApiOperation(value = "新增一个对象，参数为请求体json串",notes = "新增一个对象，参数为请求体json串")
     @RequestMapping(method = RequestMethod.POST)
-    ResponseResult<T> create(@RequestBody T bean);
+    ResponseResult create(@RequestBody T bean);
 }

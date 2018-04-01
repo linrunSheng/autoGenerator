@@ -22,7 +22,4 @@ public class UserService extends AbstractService<User, java.lang.Integer>{
 		super(mapper);
 	}
 
-
-
-
 }

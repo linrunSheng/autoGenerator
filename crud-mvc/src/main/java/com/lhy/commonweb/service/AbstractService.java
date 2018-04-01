@@ -54,6 +54,14 @@ public abstract class AbstractService<T extends Serializable, P extends Serializ
         return this.mapper.selectByPrimaryKey(id);
     }
 
+    public T getCond(T bean) {
+        List<T> select = this.mapper.select(bean);
+        if (select.isEmpty()) {
+            return null;
+        }
+        return select.get(0);
+    }
+
     public int add(T bean) {
         return this.mapper.insertSelective(bean);
     }
@@ -62,8 +70,20 @@ public abstract class AbstractService<T extends Serializable, P extends Serializ
         return this.mapper.updateByPrimaryKeySelective(bean);
     }
 
+    public int update(T bean, Example example) {
+        return this.mapper.updateByExample(bean, example);
+    }
+
     public int delete(P id) {
         return this.mapper.deleteByPrimaryKey(id);
+    }
+
+    public int deleteCond(T bean) {
+        return this.mapper.delete(bean);
+    }
+
+    public int delete(Example example) {
+        return this.mapper.deleteByExample(example);
     }
 
     public int delete(Collection<P> ids) {
@@ -90,6 +110,22 @@ public abstract class AbstractService<T extends Serializable, P extends Serializ
         return new Page<T>(trunlatePageNumber, trunlatePageSize, count, select);
     }
 
+    public List<T> query(T bean) {
+        return this.mapper.select(bean);
+    }
+
+    public T queryOne(T bean) {
+        return this.mapper.selectOne(bean);
+    }
+
+    public List<T> query(Example e) {
+        return this.mapper.selectByExample(e);
+    }
+
+    public List<T> queryAll() {
+        return this.mapper.selectAll();
+    }
+
     public Page<T> queryExample(Integer pageNumber, Integer pageSize, String sortColumns, T bean) {
         int trunlatePageNumber = trunlatePageNumber(pageNumber);
         int trunlatePageSize = trunlatePageSize(pageSize);
@@ -109,6 +145,14 @@ public abstract class AbstractService<T extends Serializable, P extends Serializ
         PageHelper.startPage(trunlatePageNumber, trunlatePageSize, trunlateSortColumns);
         List<T> select = this.mapper.selectByExample(example);
         return new Page<T>(trunlatePageNumber, trunlatePageSize, count, select);
+    }
+
+    public int count(T bean){
+       return this.mapper.selectCount(bean);
+    }
+
+    public int count(Example example){
+        return this.mapper.selectCountByExample(example);
     }
 
     private int trunlatePageNumber(Integer pageNumber) {

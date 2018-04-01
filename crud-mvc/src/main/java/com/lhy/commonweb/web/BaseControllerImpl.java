@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -59,6 +60,11 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
         return service.queryExample(requestPage.getPage(), requestPage.getRows(), requestPage.getSc(), bean);
     }
 
+    @Override
+    public List<T> queryCond(@Validated @ModelAttribute T bean) {
+        return service.query(bean);
+    }
+
     protected void wrapRequestPage(RequestPage requestPage, String configSortColumns) {
         if (RequestPage.DEFAULT_SORT_COLUMNS.equals(requestPage.getSc()) && StringUtils.hasText(configSortColumns)) {
             requestPage.setSc(configSortColumns);
@@ -79,6 +85,16 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
     }
 
     /**
+     * 按条件查询一个
+     * @param bean
+     * @return
+     */
+    @Override
+    public T getCond(@Validated @ModelAttribute T bean) {
+        return service.getCond(bean);
+    }
+
+    /**
      * @param bean
      * @return ResponseResult
      * @throws
@@ -87,7 +103,7 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
      * @date 2018/3/14 15:23
      */
     @Override
-    public ResponseResult<T> create(@RequestBody T bean) {
+    public ResponseResult create(@RequestBody T bean) {
         return ResponseResult.create(service.add(bean));
     }
 
@@ -101,20 +117,20 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
      * @date 2018/3/14 15:38
      */
     @Override
-    public ResponseResult<T> update(@RequestBody T bean) {
+    public ResponseResult update(@RequestBody T bean) {
         return ResponseResult.create(service.update(bean));
     }
 
     /**
      * @param id,
-     * @return ResponseResult<T>
+     * @return ResponseResult
      * @throws
      * @Title: delete
      * @Description: 删除
      * @date 2018/3/14 15:39
      */
     @Override
-    public ResponseResult<T> delete(@PathVariable("id") P id) {
+    public ResponseResult delete(@PathVariable("id") P id) {
         return ResponseResult.create(service.delete(id));
     }
 
@@ -126,8 +142,18 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
      * @return
      */
     @Override
-    public ResponseResult<T> delete(@RequestParam("items") Set<P> items) {
+    public ResponseResult delete(@RequestParam("items") Set<P> items) {
         return ResponseResult.create(service.delete(items));
+    }
+
+    /**
+     * 按条件删除
+     * @param bean
+     * @return
+     */
+    @Override
+    public ResponseResult deleteCond(@Validated @ModelAttribute T bean) {
+        return ResponseResult.create(service.deleteCond(bean));
     }
 
     /**

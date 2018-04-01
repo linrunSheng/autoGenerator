@@ -19,6 +19,24 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * 自定义WebConfig配置
+ *
+ * 可以动态的设置controller和view映射
+ * 方法addViewControllers
+ *
+ *  crud-tempalte WebConfig.java
+ *  /**
+ * {@inheritDoc}
+ * </br>注册controller映射
+ * 如果有相同注解controller 以注解优先
+ *
+ *public void addViewControllers(ViewControllerRegistry registry) {
+ *       registry.setOrder(0);
+ *       registry.addViewController("/userview").setViewName("example/user");
+ *}
+ *
+ */
 @Component
 @Slf4j
 public class CustomWebConfigGenerator implements Generator {
@@ -30,7 +48,8 @@ public class CustomWebConfigGenerator implements Generator {
     @SneakyThrows
     @Override
     public File genCode(CrudBean crudBean, GeneratorConfigation generatorConfigation) {
-        File file = preResource();
+        String javaProjectPath = generatorConfigation.getProject().getJavaProjectPath();
+        File file = preResource(javaProjectPath);
         String content = addViewController(crudBean);
         saveFile(file, content);
         clearTemp();
@@ -65,8 +84,8 @@ public class CustomWebConfigGenerator implements Generator {
         return null;
     }
 
-    private File preResource() throws IOException {
-        String oraginPath = "E:\\git-new-res\\crud-generator\\crud-example\\src\\main\\java\\com\\lhy\\config\\" + WEB_CONFIG_JAVA;
+    private File preResource(String javaProjectPath) throws IOException {
+        String oraginPath = javaProjectPath+"\\src\\main\\java\\com\\lhy\\config\\" + WEB_CONFIG_JAVA;
         File file = new File(oraginPath);
         File tempFile = getWebConfigTempFile();
         FileUtils.copyFile(file, tempFile);
