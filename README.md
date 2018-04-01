@@ -204,9 +204,36 @@ CustomWebConfigGenerator.java
 ![注册相关配置类以取代默认配置](https://gitee.com/uploads/images/2018/0106/232355_dcd39f94_1009390.png "注册相关配置类以取代默认配置.png")
 
 
+###### 单个引用
+以下两个模块可单独引入
+
+ **crud-mvc** 
+
+为基于springmvc封装的一个通用controller和service接口，基于restful-api和泛型设计
+继承BaseControllerImpl即可包含常用增删改查接口功能
+![输入图片说明](https://gitee.com/uploads/images/2018/0325/200114_9891cef1_1009390.png "屏幕截图.png")
+
+ **crud-plugin** 
+
+mybatis-geneator 扩展插件， 包含以下扩展功能   
+```
+<!--开启swagger-ui注解-->
+<property name="swaggerApiEnabled" value="true" />
+<!--实现序列化接口 默认true -->
+<property name="implementSerializableInteface" value="true" />  
+<!--实体类增加字段名称枚举 默认true -->
+<property name="modelFieldEnum" value="true" /> 
+<!--setter方法链式调用（返回this） 默认true -->
+<property name="setterMethodChainEnabled" value="true" />
+```
+
+#### 愿景
+1. 可视化页面配置
+2. vue模板实现
+3. 步骤整合，简化流程
 
 
-####  这个工具功能不是最强大的最完善的，主要是说明下设计过程中使用到的一些较为适用的设计思想和模式
+####  这个工具功能并不是很完善的，主要是说明下设计过程中使用到的一些较为适用的设计思想和模式
 
 例如：封装变化，单一职责，多组合少继承，对修改关闭对扩展开放等等。。。
 
