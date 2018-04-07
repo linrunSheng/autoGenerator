@@ -50,7 +50,12 @@ public abstract class AbstractCrudBeanFactory implements CrudBeanFactory {
         } catch (Exception e) {
             String path = javaProjectPath + "/target/classes/";
             log.info("{}，没有获取到模型类，从目标项目：{}加载模型文件class：{}", e, path, className);
-            aClass = ClassLoaderUtil.getClass(path, className);
+            try {
+                aClass = ClassLoaderUtil.getClass(path, className);
+            } catch (Exception e1) {
+                log.error("{}，从目标项目：{}加载模型文件class失败，请检查class文件是否存在：{}", e1, path, className);
+                throw e;
+            }
         }
         return aClass;
     }

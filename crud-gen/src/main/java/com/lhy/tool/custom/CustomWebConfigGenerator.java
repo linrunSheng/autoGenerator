@@ -14,7 +14,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +36,7 @@ import java.io.IOException;
  *}
  *
  */
-@Component
+//@Component
 @Slf4j
 public class CustomWebConfigGenerator implements Generator {
 
