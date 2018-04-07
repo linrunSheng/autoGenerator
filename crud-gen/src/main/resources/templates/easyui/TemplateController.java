@@ -29,7 +29,7 @@ public class ${javaAttribute.controller.name} extends BaseControllerImpl<${javaA
 	}
 
 	@Override
-	public Page<User> query(@Validated @ModelAttribute RequestPage requestPage, @Validated @ModelAttribute User bean) {
+	public Page<${javaAttribute.model.name}> query(@Validated @ModelAttribute RequestPage requestPage, @Validated @ModelAttribute ${javaAttribute.model.name} bean) {
 		super.wrapRequestPage(requestPage, "${controllerAttribute.orderBySql}");
 		return super.query(requestPage, bean);
 	}
