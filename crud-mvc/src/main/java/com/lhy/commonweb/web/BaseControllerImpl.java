@@ -7,7 +7,6 @@ import com.lhy.commonweb.model.ResponseResult;
 import com.lhy.commonweb.model.ResponseValidate;
 import com.lhy.commonweb.service.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,8 +65,8 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
     }
 
     protected void wrapRequestPage(RequestPage requestPage, String configSortColumns) {
-        if (RequestPage.DEFAULT_SORT_COLUMNS.equals(requestPage.getSc()) && StringUtils.hasText(configSortColumns)) {
-            requestPage.setSc(configSortColumns);
+        if (RequestPage.DEFAULT_SORT_COLUMNS.equals(requestPage.getSc())) {
+            requestPage.setSc("");
         }
     }
 
