@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -104,10 +105,9 @@ public abstract class AbstractService<T extends Serializable, P extends Serializ
         int trunlatePageNumber = trunlatePageNumber(pageNumber);
         int trunlatePageSize = trunlatePageSize(pageSize);
         String trunlateSortColumns = trunlateSortColumns(sortColumns);
-        int count = this.mapper.selectCount(bean);
-        PageHelper.startPage(trunlatePageNumber, trunlatePageSize, trunlateSortColumns);
+        com.github.pagehelper.Page<Object> startPage = PageHelper.startPage(trunlatePageNumber, trunlatePageSize, trunlateSortColumns);
         List<T> select = this.mapper.select(bean);
-        return new Page<T>(trunlatePageNumber, trunlatePageSize, count, select);
+        return new Page<T>(trunlatePageNumber, trunlatePageSize, new BigDecimal(startPage.getTotal()).intValue(), select);
     }
 
     public List<T> query(T bean) {
@@ -141,17 +141,16 @@ public abstract class AbstractService<T extends Serializable, P extends Serializ
                 criteria.andLike(field.getName(), "%" + fieldValue + "%");
             }
         }
-        int count = this.mapper.selectCountByExample(example);
-        PageHelper.startPage(trunlatePageNumber, trunlatePageSize, trunlateSortColumns);
+        com.github.pagehelper.Page<Object> startPage = PageHelper.startPage(trunlatePageNumber, trunlatePageSize, trunlateSortColumns);
         List<T> select = this.mapper.selectByExample(example);
-        return new Page<T>(trunlatePageNumber, trunlatePageSize, count, select);
+        return new Page<T>(trunlatePageNumber, trunlatePageSize, new BigDecimal(startPage.getTotal()).intValue(), select);
     }
 
-    public int count(T bean){
-       return this.mapper.selectCount(bean);
+    public int count(T bean) {
+        return this.mapper.selectCount(bean);
     }
 
-    public int count(Example example){
+    public int count(Example example) {
         return this.mapper.selectCountByExample(example);
     }
 
