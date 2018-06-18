@@ -26,7 +26,7 @@ public interface BaseDeleteController<T extends Serializable, P extends Serializ
      */
     @RequestMapping(method = RequestMethod.DELETE)
     @ApiOperation(value = "批量删除，参数为id数组",notes = "批量删除，参数为id数组")
-    ResponseResult delete(@RequestParam("items") Set<P> items);
+    ResponseResult delete(@RequestParam("items[]") Set<P> items);
 
     /**
      *  按条件删除

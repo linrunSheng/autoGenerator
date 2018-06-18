@@ -154,15 +154,15 @@ public abstract class AbstractService<T extends Serializable, P extends Serializ
         return this.mapper.selectCountByExample(example);
     }
 
-    private int trunlatePageNumber(Integer pageNumber) {
+    protected int trunlatePageNumber(Integer pageNumber) {
         return pageNumber == null ? RequestPage.DEFAULT_PAGE_NUMBER : pageNumber;
     }
 
-    private int trunlatePageSize(Integer pageSize) {
+    protected int trunlatePageSize(Integer pageSize) {
         return pageSize == null ? RequestPage.DEFAULT_PAGE_SIZE : pageSize;
     }
 
-    private String trunlateSortColumns(String sortColumns) {
+    protected String trunlateSortColumns(String sortColumns) {
         return sortColumns == null ? RequestPage.DEFAULT_SORT_COLUMNS : sortColumns;
     }
 

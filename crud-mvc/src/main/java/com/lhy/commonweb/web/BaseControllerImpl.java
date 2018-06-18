@@ -41,8 +41,20 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
         this.service = service;
     }
 
+    public void setService(AbstractService<T, P> service) {
+        this.service = service;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated see  getService(Class<S> serviceClass)
+     */
     protected <S> S getService() {
         return (S) this.service;
+    }
+
+    protected <S> S getService(Class<S> serviceClass) {
+        return serviceClass.cast(this.service);
     }
 
     /**
@@ -85,6 +97,7 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
 
     /**
      * 按条件查询一个
+     *
      * @param bean
      * @return
      */
@@ -147,6 +160,7 @@ public abstract class BaseControllerImpl<T extends Serializable, P extends Seria
 
     /**
      * 按条件删除
+     *
      * @param bean
      * @return
      */
