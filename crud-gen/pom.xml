@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.lhy.tool</groupId>
     <artifactId>crud-gen</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.lhy.tool</groupId>
             <artifactId>crud-core</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
         </dependency>
         <!-- lombok -->
         <dependency>
