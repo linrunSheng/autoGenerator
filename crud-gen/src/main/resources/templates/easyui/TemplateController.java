@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
- * 
-* @ClassName: ${javaAttribute.controller.name}
-* @Description: ${javaAttribute.description}
-* @author ${author}
-* @date 2017年9月29日 上午11:03:30
-* @Copyright: Copyright (c) 2017 wisedu
+ * ${javaAttribute.controller.name}
+ * <p/>
+ *  ${javaAttribute.description}
+ * @author hyluan
+ * @date 2018/7/18 18:37
+ * Copyright (c) 2018 wisedu
  */
 @RestController
 @RequestMapping(value = "${controllerAttribute.controllerRequestMapping}")

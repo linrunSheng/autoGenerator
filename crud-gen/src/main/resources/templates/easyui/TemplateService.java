@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
-
 /**
- * 
-* @ClassName: ${javaAttribute.service.name}
-* @Description: ${javaAttribute.description}
-* @author
-* @date 2017年12月18日 下午5:08:53
-* @Copyright: Copyright (c) 2017 wisedu
+ * ${javaAttribute.service.name}
+ * <p/>
+ *  ${javaAttribute.description}
+ * @author hyluan
+ * @date 2018/7/18 18:37
+ * Copyright (c) 2018 wisedu
  */
 @Service
 public class ${javaAttribute.service.name} extends AbstractService<${javaAttribute.model.name}, ${javaAttribute.primaryKeyType}>{
