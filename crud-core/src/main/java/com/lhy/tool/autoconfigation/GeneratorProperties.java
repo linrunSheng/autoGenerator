@@ -158,7 +158,7 @@ public class GeneratorProperties {
 			/**
 			 * 自定义排序sql语句 例如：  userId asc, userCode desc
 			 */
-			private String queryOrderSql;
+			private String queryOrderSql ="";
 
 		}
 		
