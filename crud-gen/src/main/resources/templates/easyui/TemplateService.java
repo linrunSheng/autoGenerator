@@ -21,7 +21,4 @@ public class ${javaAttribute.service.name} extends AbstractService<${javaAttribu
 		super(mapper);
 	}
 
-
-
-
 }

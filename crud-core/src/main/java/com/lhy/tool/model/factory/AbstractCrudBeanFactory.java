@@ -53,8 +53,8 @@ public abstract class AbstractCrudBeanFactory implements CrudBeanFactory {
             try {
                 aClass = ClassLoaderUtil.getClass(path, className);
             } catch (Exception e1) {
-                log.error("{}，从目标项目：{}加载模型文件class失败，请检查class文件是否存在：{}", e1, path, className);
-                throw e;
+                String format = String.format("从目标项目：%s加载模型文件class失败，请检查class文件是否存在：%s", path, className);
+                throw new ClassNotFoundException(format,e);
             }
         }
         return aClass;

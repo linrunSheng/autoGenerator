@@ -1,7 +1,5 @@
 package com.lhy.commonweb.model;
 
-import com.lhy.commonweb.service.DefaultSortColumns;
-import com.lhy.commonweb.service.SortColumnBinding;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,7 +20,10 @@ import java.io.Serializable;
 @ApiModel(value="分页请求参数",description="分页请求参数")
 public class RequestPage implements Serializable {
 
-	public static final String DEFAULT_SORT_COLUMNS = "updated desc"; //默认多列排序,example: username desc,created asc
+	/**
+	 * 默认不排序
+	 */
+	public static final String DEFAULT_SORT_COLUMNS = "";
 	public static final Integer DEFAULT_PAGE_SIZE = 10;
 	public static final Integer DEFAULT_PAGE_NUMBER = 1;
 

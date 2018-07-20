@@ -156,9 +156,9 @@ public class GeneratorProperties {
 			 */
 			private String controllerRequestMapping;
 			/**
-			 * 自定义排序sql语句 例如：  userId asc, userCode desc
+			 * 自定义排序sql语句 例如：  userId asc, userCode desc 默认为空
 			 */
-			private String queryOrderSql ="";
+			private String queryOrderSql = "";
 
 		}
 		

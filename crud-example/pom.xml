@@ -4,7 +4,7 @@
 
     <groupId>com.lhy.tool</groupId>
     <artifactId>crud-example</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3.SNOSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -77,12 +77,12 @@
         <dependency>
             <groupId>com.lhy.tool</groupId>
             <artifactId>crud-mvc</artifactId>
-            <version>2.0.2</version>
+            <version>2.0.3.SNOSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.lhy.tool</groupId>
             <artifactId>crud-plugin</artifactId>
-            <version>2.0.2</version>
+            <version>2.0.3.SNOSHOT</version>
             <scope>compile</scope>
         </dependency>
 
@@ -128,7 +128,7 @@
                     <dependency>
                         <groupId>com.lhy.tool</groupId>
                         <artifactId>crud-plugin</artifactId>
-                        <version>2.0.2</version>
+                        <version>2.0.3.SNOSHOT</version>
                     </dependency>
                     <dependency>
                         <groupId>mysql</groupId>
