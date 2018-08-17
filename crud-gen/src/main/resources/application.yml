@@ -8,13 +8,13 @@ crudgen:
   view-enabled: false #是否生成视图 默认thymeleaf html
   js-enabled: false #是否生成js
   model-attributes:
-#    - model-name: User #model名称 支持配置多张表 参考yml数组配置
+#    - entity-name: User #model名称 支持配置多张表 参考yml数组配置
 #      extend-attr-map: #自定义扩展属性
 #        author: hyluan
 #      java-attributes:
-#        model-package: com.lhy.example.user.model #model包路径
+#        entity-package: com.lhy.example.user.entity #model包路径
 #        service-package: com.lhy.example.user.service #service包路径
-#        controller-package: com.lhy.example.user.web #controller包路径
+#        controller-package: com.lhy.example.user.controller #controller包路径
 #        controller-request-mapping: user #controller requestMapping路径
 #        query-order-sql: updated desc #排序字段,格式为sql中order by 后的内容
 #      view-attributes:
@@ -54,39 +54,39 @@ crudgen:
       extend-attr-map: #自定义扩展属性
         author: hyluan
       java-attributes:
-        model-package: com.lhy.wechat.model #model包路径
+        model-package: com.lhy.wechat.entity #model包路径
         service-package: com.lhy.wechat.service #service包路径
-        controller-package: com.lhy.wechat.web #controller包路径
+        controller-package: com.lhy.wechat.controller #controller包路径
         controller-request-mapping: manage/customer #controller requestMapping路径
-#    - model-name: WxOrder #model名称 支持配置多张表 参考yml数组配置
+#    - entity-name: WxOrder #model名称 支持配置多张表 参考yml数组配置
 #      extend-attr-map: #自定义扩展属性
 #        author: hyluan
 #      java-attributes:
-#        model-package: com.lhy.wechat.model #model包路径
+#        entity-package: com.lhy.wechat.entity #model包路径
 #        service-package: com.lhy.wechat.service #service包路径
-#        controller-package: com.lhy.wechat.web #controller包路径
+#        controller-package: com.lhy.wechat.controller #controller包路径
 #        controller-request-mapping: manage/order #controller requestMapping路径
-#    - model-name: WxProd #model名称 支持配置多张表 参考yml数组配置
+#    - entity-name: WxProd #model名称 支持配置多张表 参考yml数组配置
 #      extend-attr-map: #自定义扩展属性
 #        author: hyluan
 #      java-attributes:
-#        model-package: com.lhy.wechat.model #model包路径
+#        entity-package: com.lhy.wechat.entity #model包路径
 #        service-package: com.lhy.wechat.service #service包路径
-#        controller-package: com.lhy.wechat.web #controller包路径
+#        controller-package: com.lhy.wechat.controller #controller包路径
 #        controller-request-mapping: manage/prod #controller requestMapping路径
-#    - model-name: WxProdType #model名称 支持配置多张表 参考yml数组配置
+#    - entity-name: WxProdType #model名称 支持配置多张表 参考yml数组配置
 #      extend-attr-map: #自定义扩展属性
 #        author: hyluan
 #      java-attributes:
-#        model-package: com.lhy.wechat.model #model包路径
+#        entity-package: com.lhy.wechat.entity #model包路径
 #        service-package: com.lhy.wechat.service #service包路径
-#        controller-package: com.lhy.wechat.web #controller包路径
+#        controller-package: com.lhy.wechat.controller #controller包路径
 #        controller-request-mapping: manage/prodType #controller requestMapping路径
-#    - model-name: WxProdTypeRel #model名称 支持配置多张表 参考yml数组配置
+#    - entity-name: WxProdTypeRel #model名称 支持配置多张表 参考yml数组配置
 #      extend-attr-map: #自定义扩展属性
 #        author: hyluan
 #      java-attributes:
-#        model-package: com.lhy.wechat.model #model包路径
+#        entity-package: com.lhy.wechat.entity #model包路径
 #        service-package: com.lhy.wechat.service #service包路径
-#        controller-package: com.lhy.wechat.web #controller包路径
+#        controller-package: com.lhy.wechat.controller #controller包路径
 #        controller-request-mapping: manage/prodTypeRel #controller requestMapping路径

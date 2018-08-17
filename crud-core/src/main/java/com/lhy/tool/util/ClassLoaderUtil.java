@@ -22,7 +22,7 @@ public class ClassLoaderUtil {
     }
 
     public static void main(String[] args) {
-        Class aClass = getClass("E:\\git-new-res\\crud-generator\\crud-example\\target\\classes", "com.lhy.example.user.model.User");
+        Class aClass = getClass("E:\\git-new-res\\crud-generator\\crud-example\\target\\classes", "com.lhy.example.user.entity.User");
         System.out.println(aClass.getSimpleName());
     }
 }

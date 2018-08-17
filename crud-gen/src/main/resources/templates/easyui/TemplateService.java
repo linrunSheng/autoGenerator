@@ -17,7 +17,7 @@ import tk.mybatis.mapper.common.Mapper;
 @Service
 public class ${javaAttribute.service.name} extends AbstractService<${javaAttribute.model.name}, ${javaAttribute.primaryKeyType}>{
 
-	public ${javaAttribute.service.name}(@Qualifier("${javaAttribute.model.parametterName}Mapper") Mapper<${javaAttribute.model.name}> mapper) {
+	public ${javaAttribute.service.name}(@Qualifier("${javaAttribute.entity.parametterName}Mapper") Mapper<${javaAttribute.model.name}> mapper) {
 		super(mapper);
 	}
 
