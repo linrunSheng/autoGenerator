@@ -54,10 +54,6 @@
             <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
@@ -72,22 +68,15 @@
             <version>1.2.18</version>
         </dependency>
         <dependency>
-            <groupId>com.didispace</groupId>
-            <artifactId>spring-boot-starter-swagger</artifactId>
-            <version>1.4.1.RELEASE</version>
-        </dependency>
-        <dependency>
             <groupId>com.lhy.tool</groupId>
             <artifactId>crud-mvc</artifactId>
             <version>3.0.0.SNOSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.lhy.tool</groupId>
-            <artifactId>crud-plugin</artifactId>
-            <version>3.0.0.SNOSHOT</version>
-            <scope>compile</scope>
+            <groupId>com.spring4all</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+            <version>2.0.0.RELEASE</version>
         </dependency>
-
     </dependencies>
 
 

@@ -6,11 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Copyright: Copyright (c) 2015 zznode
@@ -188,7 +184,9 @@ public class ReflectionUtils {
 
     public static Map<String, Object> getEntityColumns(Object entity) {
         return Arrays.stream(entity.getClass().getDeclaredFields()).filter(field -> !Modifier.isStatic(field.getModifiers()))
-                .collect(Collectors.toMap(field -> field.getAnnotation(TableField.class) == null ? field.getName() : field.getAnnotation(TableField.class).value(), field -> ReflectionUtils.getFieldValue(entity, field.getName())));
+                .collect(HashMap::new,
+                        (m, field) -> m.put(field.getAnnotation(TableField.class) == null ? field.getName() : field.getAnnotation(TableField.class).value(),
+                                ReflectionUtils.getFieldValue(entity, field.getName())), HashMap::putAll);
     }
 
 

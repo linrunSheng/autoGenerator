@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.Serializable;
 
-public interface BaseValidateController<T extends Serializable> {
+public interface SimpleValidateController<T extends Serializable> {
 
     /**
      * 校验是否存在<br/>

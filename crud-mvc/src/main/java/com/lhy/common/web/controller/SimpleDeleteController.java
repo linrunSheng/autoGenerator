@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.util.Set;
 
-public interface BaseDeleteController<T extends Serializable, P extends Serializable> {
+public interface SimpleDeleteController<T extends Serializable, P extends Serializable> {
 
     /**
      * 根据主键id删除<br/>

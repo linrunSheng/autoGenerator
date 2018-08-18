@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.Serializable;
 
-public interface BaseGetController<T extends Serializable, P extends Serializable> {
+public interface SimpleGetController<T extends Serializable, P extends Serializable> {
 
 
     /**

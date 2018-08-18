@@ -5,7 +5,14 @@ spring:
   devtools:
     restart:
       enabled: false
-
+  application:
+      name: sking-admin
+  #mvc
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    date-format: yyyy-MM-dd HH\:mm\:ss
   # H2 DATABASE CONFIG
 # jdbc_config   datasource
   datasource:
@@ -51,5 +58,25 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+    #打印sql语句,调试用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
+swagger:
+  enabled: true
+  title: sking-admin
+  description: 后台管理服务端
+  version: 1.0.0
+  license: Apache License, Version 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfServiceUrl: http://blog.csdn.net/v2sking
+  contact.name: 再见尼罗河
+  contact.url: http://blog.csdn.net/v2sking
+  contact.email: 1591963820@163.com
+  base-package: com.lhy
+  base-path: /**
+  exclude-path: /error, /ops/**
+  docket:
+    user:
+      title: 用户
+      description: 用户相关
+      base-path: /sys/sp-user/**

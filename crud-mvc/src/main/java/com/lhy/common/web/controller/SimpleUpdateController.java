@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.Serializable;
 
-public interface BaseUpdateController<T extends Serializable> {
+public interface SimpleUpdateController<T extends Serializable> {
 
     /**
      * 更新对象，根据主键id更新记录，空字段不更新<br/>

@@ -1,7 +1,7 @@
 package com.lhy.common.web.controller;
 
 import com.lhy.common.web.entity.Page;
-import com.lhy.common.web.entity.RequestPage;
+import com.lhy.common.web.entity.SimplePage;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.Serializable;
 import java.util.List;
 
-public interface BaseQueryController<T extends Serializable> {
+public interface SimpleQueryController<T extends Serializable> {
     /**
      * 分页查询，传入分页条件，排序字段，查询字段<br/>
      * 请求路径 /path?id=<br/>
      * get方法<br/>
      * 参数注解:  @Validated @ModelAttribute
-     * @param requestPage
+     * @param simplePage
      * @param bean
      * @return com.wisedu.selfservice.cloud.Page<T>
      * @throws
@@ -25,7 +25,7 @@ public interface BaseQueryController<T extends Serializable> {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ApiOperation(value = "分页查询，传入分页条件，排序字段，查询字段", notes = "分页查询，传入分页条件，排序字段，查询字段")
-    Page<T> query(@Validated @ModelAttribute RequestPage requestPage, @Validated @ModelAttribute T bean);
+    Page<T> query(@Validated @ModelAttribute SimplePage simplePage, @Validated @ModelAttribute T bean);
 
     /**
      * 按多个条件查询<br/>

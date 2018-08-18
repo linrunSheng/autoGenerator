@@ -1,16 +1,12 @@
 package com.lhy.common.web.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lhy.common.web.entity.Page;
-import com.lhy.common.web.entity.RequestPage;
 import com.lhy.common.web.entity.ResponseResult;
 import com.lhy.common.web.entity.ResponseValidate;
-import com.lhy.common.web.util.ReflectionUtils;
+import com.lhy.common.web.entity.SimplePage;
+import com.lhy.common.web.service.SimpleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,18 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
+ * SimpleCrudControllerSupport<br/>
+ * 简易controller支持类，提供了常用的增删改查方法<br/>
+ * 注意覆盖方法时，入参上的注解不能继承，需要重新设置
  * @author hyluan
- * @ClassName: SimpleCrudControllerSupport 注意阀盖方法时入参上的注解不能继承，需要重新设置
- * @Description: (这里用一句话描述这个类的作用)
- * @date 2018/3/14 15:18
- * @Copyright: Copyright (c) 2018 wisedu
  */
-public abstract class SimpleCrudControllerSupport<S extends ServiceImpl, T extends Serializable, P extends Serializable>
-        implements BaseController<T, P> {
+public abstract class SimpleCrudControllerSupport<S extends SimpleService, T extends Serializable, P extends Serializable>
+        implements SimpleCrudController<T, P> {
 
     @Autowired
     protected S service;
@@ -44,29 +39,13 @@ public abstract class SimpleCrudControllerSupport<S extends ServiceImpl, T exten
     protected HttpServletResponse response;
 
     @Override
-    public Page<T> query(@Validated @ModelAttribute RequestPage requestPage, @Validated @ModelAttribute T bean) {
-        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-        Map<String, Object> entityColumns = ReflectionUtils.getEntityColumns(bean);
-        entityColumns.forEach((name, value) -> {
-            if (!ObjectUtils.isEmpty(value)) {
-                queryWrapper.or().like(name, value);
-            }
-        });
-        com.baomidou.mybatisplus.extension.plugins.pagination.Page page1 = new com.baomidou.mybatisplus.extension.plugins.pagination.Page(requestPage.getPage().longValue(), requestPage.getRows().longValue());
-        IPage<T> page = service.page(page1, queryWrapper);
-        return new Page<>(requestPage.getPage(), requestPage.getRows(), (int) page.getTotal(), page.getRecords());
+    public Page<T> query(@Validated @ModelAttribute SimplePage simplePage, @Validated @ModelAttribute T bean) {
+        return service.paging(simplePage, bean);
     }
 
     @Override
     public List<T> queryCond(@Validated @ModelAttribute T bean) {
-        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-        Map<String, Object> entityColumns = ReflectionUtils.getEntityColumns(bean);
-        entityColumns.forEach((name, value) -> {
-            if (!ObjectUtils.isEmpty(value)) {
-                queryWrapper.like(name, value);
-            }
-        });
-        return service.list(queryWrapper);
+        return service.list(bean);
     }
 
     @Override
@@ -76,19 +55,8 @@ public abstract class SimpleCrudControllerSupport<S extends ServiceImpl, T exten
 
     @Override
     public T getCond(@Validated @ModelAttribute T bean) {
-        List<T> list = service.list(getEqQueryWrapper(bean));
-        return list.isEmpty() ? null : list.get(0);
-    }
-
-    private QueryWrapper<T> getEqQueryWrapper(@Validated @ModelAttribute T bean) {
-        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-        Map<String, Object> entityColumns = ReflectionUtils.getEntityColumns(bean);
-        entityColumns.forEach((name, value) -> {
-            if (!ObjectUtils.isEmpty(value)) {
-                queryWrapper.eq(name, value);
-            }
-        });
-        return queryWrapper;
+        Optional<T> empty = Optional.empty();
+        return (T) service.getOne(bean).orElse(empty);
     }
 
 
@@ -116,13 +84,11 @@ public abstract class SimpleCrudControllerSupport<S extends ServiceImpl, T exten
 
     @Override
     public ResponseResult deleteCond(@Validated @ModelAttribute T bean) {
-        QueryWrapper<T> eqQueryWrapper = getEqQueryWrapper(bean);
-        return ResponseResult.create(service.remove(eqQueryWrapper));
+        return ResponseResult.create(service.remove(bean));
     }
 
     @Override
     public ResponseValidate validate(T bean) {
-        List<T> list = service.list(getEqQueryWrapper(bean));
-        return ResponseValidate.create(list.isEmpty());
+        return ResponseValidate.create(service.exist(bean));
     }
 }

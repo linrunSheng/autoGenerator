@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.Serializable;
 
-public interface BaseCreateController<T extends Serializable> {
+public interface SimpleCreateController<T extends Serializable> {
 
     /**
      * 新增一个对象，参数为请求体json串<br/>

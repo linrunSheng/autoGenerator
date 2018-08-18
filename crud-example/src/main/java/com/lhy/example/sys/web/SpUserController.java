@@ -3,12 +3,11 @@ package com.lhy.example.sys.web;
 
 import com.lhy.common.web.annotation.SimpleMapping;
 import com.lhy.common.web.controller.SimpleCrudControllerSupport;
-import com.lhy.common.web.entity.Page;
-import com.lhy.common.web.entity.RequestPage;
 import com.lhy.example.sys.entity.SpUser;
 import com.lhy.example.sys.service.SpUserService;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -20,24 +19,13 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/sys/sp-user")
+@SimpleMapping
 public class SpUserController extends SimpleCrudControllerSupport<SpUserService, SpUser, Integer> {
 
-    @Override
-    @SimpleMapping
-    public SpUser get(@PathVariable("id") Integer id) {
-        return super.get(id);
-    }
-
-    @Override
-    @SimpleMapping
-    public Page<SpUser> query(@Validated @ModelAttribute RequestPage requestPage, @Validated @ModelAttribute SpUser bean) {
-        return super.query(requestPage, bean);
-
-    }
-
-    @GetMapping("test/test")
+    @GetMapping("test")
     public Object test(){
-       return "123";
+        service.testTransactional();
+       return "ok";
     }
 }
 
