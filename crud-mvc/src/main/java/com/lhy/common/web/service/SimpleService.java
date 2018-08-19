@@ -12,6 +12,8 @@ import com.lhy.common.web.entity.SimplePage;
 import com.lhy.common.web.util.ReflectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,22 +35,22 @@ public abstract class SimpleService<M extends BaseMapper<T>, T> extends ServiceI
      * @return
      */
     protected QueryWrapper<T> newQueryWrapper(T bean, EntityColumnCondition<T> condition, boolean ignoreNullColumn) {
-        QueryWrapper<T> queryWrapper = null;
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
         Map<String, Object> entityColumns = ReflectionUtils.getEntityColumns(bean);
         for (Map.Entry<String, Object> entity : entityColumns.entrySet()) {
             if (ignoreNullColumn) {
                 if (!ObjectUtils.isEmpty(entity.getValue())) {
-                    queryWrapper = queryWrapper(condition, entity);
+                    queryWrapper = queryWrapper(queryWrapper, condition, entity);
                 }
-            }else{
-                queryWrapper = queryWrapper(condition, entity);
+            } else {
+                queryWrapper = queryWrapper(queryWrapper, condition, entity);
             }
         }
-        return queryWrapper == null ? new QueryWrapper<>() : queryWrapper;
+        return queryWrapper;
     }
 
-    private QueryWrapper<T> queryWrapper(EntityColumnCondition<T> condition, Map.Entry<String, Object> entity) {
-        return condition.operate(new QueryWrapper<>(), entity.getKey(), entity.getValue());
+    private QueryWrapper<T> queryWrapper(QueryWrapper<T> queryWrapper, EntityColumnCondition<T> condition, Map.Entry<String, Object> entity) {
+        return condition.operate(queryWrapper, entity.getKey(), entity.getValue());
     }
 
     /**
@@ -82,11 +84,29 @@ public abstract class SimpleService<M extends BaseMapper<T>, T> extends ServiceI
     }
 
     private QueryWrapper<T> newOrLikeQueryWrapper(T bean) {
-        return newIgnoreNullColumnQueryWrapper(bean, (w, k, v) -> w.or().like(k, v));
+        return newIgnoreNullColumnQueryWrapper(bean, (w, k, v) -> {
+            if (isEqColumn(v)) {
+                w.eq(k, v);
+            } else {
+                w.or().like(k, v);
+            }
+            return w;
+        });
+    }
+
+    private boolean isEqColumn(Object v) {
+        return LocalDateTime.class.isAssignableFrom(v.getClass()) || Date.class.isAssignableFrom(v.getClass());
     }
 
     private QueryWrapper<T> newAndLikeQueryWrapper(T bean) {
-        return newIgnoreNullColumnQueryWrapper(bean, (w, k, v) -> w.like(k, v));
+        return newIgnoreNullColumnQueryWrapper(bean, (w, k, v) -> {
+            if (isEqColumn(v)) {
+                w.eq(k, v);
+            } else {
+                w.like(k, v);
+            }
+            return w;
+        });
     }
 
     @Override
@@ -113,8 +133,9 @@ public abstract class SimpleService<M extends BaseMapper<T>, T> extends ServiceI
     public Page<T> paging(SimplePage simplePage, T bean) {
         com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page1 = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(simplePage.getPage().longValue(), simplePage.getRows().longValue());
         QueryWrapper<T> queryWrapper = newOrLikeQueryWrapper(bean);
-        simplePage.getSort().forEach(sort -> queryWrapper.orderBy(true, SqlKeyword.ASC.getSqlSegment().toLowerCase().equals(sort.getOrder()),sort.getName()));
+        simplePage.getSort().forEach(sort -> queryWrapper.orderBy(true, SqlKeyword.ASC.getSqlSegment().toLowerCase().equals(sort.getOrder()), sort.getName()));
         IPage<T> page = this.page(page1, queryWrapper);
         return new Page<>(simplePage.getPage(), simplePage.getRows(), (int) page.getTotal(), page.getRecords());
     }
+
 }
