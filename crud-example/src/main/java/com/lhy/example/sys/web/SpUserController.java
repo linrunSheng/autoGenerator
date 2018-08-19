@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * <p>
  * 用户 前端控制器
@@ -25,7 +28,8 @@ public class SpUserController extends SimpleCrudControllerSupport<SpUserService,
     @GetMapping("test")
     public Object test(){
         service.testTransactional();
-       return "ok";
+        List<SpUser> list = service.list(new SpUser().setCreateTime(LocalDateTime.now()));
+        return list;
     }
 }
 

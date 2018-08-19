@@ -51,17 +51,14 @@ public class SpUser implements Serializable {
 
     @ApiModelProperty(value = "最近访问时间")
     @TableField("visit_time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime visitTime;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "更新时间")
     @TableField("update_time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "学校编码")
