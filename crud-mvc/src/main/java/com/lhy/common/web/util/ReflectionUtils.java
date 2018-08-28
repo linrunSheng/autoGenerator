@@ -2,6 +2,7 @@ package com.lhy.common.web.util;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -185,8 +186,18 @@ public class ReflectionUtils {
     public static Map<String, Object> getEntityColumns(Object entity) {
         return Arrays.stream(entity.getClass().getDeclaredFields()).filter(field -> !Modifier.isStatic(field.getModifiers()))
                 .collect(HashMap::new,
-                        (m, field) -> m.put(field.getAnnotation(TableField.class) == null ? field.getName() : field.getAnnotation(TableField.class).value(),
+                        (m, field) -> m.put(getColumnName(field),
                                 ReflectionUtils.getFieldValue(entity, field.getName())), HashMap::putAll);
+    }
+
+    private static String getColumnName(Field field) {
+        if (field.getAnnotation(TableId.class) != null) {
+            return field.getAnnotation(TableId.class).value();
+        }
+        if (field.getAnnotation(TableField.class) != null) {
+            return field.getAnnotation(TableField.class).value();
+        }
+        return field.getName();
     }
 
 
