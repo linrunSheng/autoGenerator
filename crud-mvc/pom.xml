@@ -92,4 +92,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-wecloud</id>
+            <name>nexus-wecloud</name>
+            <url>http://172.16.6.77:8081/nexus/content/repositories/wecloud/</url>
+        </repository>
+        <snapshotRepository>
+            <id>wecloud-snapshot</id>
+            <name>wecloud-snapshot</name>
+            <url>http://172.16.6.77:8081/nexus/content/repositories/wecloud-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>

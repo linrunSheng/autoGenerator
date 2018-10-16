@@ -55,10 +55,9 @@ public abstract class SimpleCrudControllerSupport<S extends SimpleService, T ext
 
     @Override
     public T getCond(@Validated @ModelAttribute T bean) {
-        Optional<T> empty = Optional.empty();
-        return (T) service.getOne(bean).orElse(empty);
+        Optional<T> one = service.getOne(bean);
+        return one.orElse(null);
     }
-
 
     @Override
     public ResponseResult create(@RequestBody T bean) {
